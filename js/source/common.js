@@ -8,47 +8,49 @@ var body = document.getElementsByTagName("body")[0];
 var cacheNum;
 var cacheSetinterval;
 
-common.exam = {
-	'question' : [
-		'6 + 9 = ?',
-		'50 ÷ 5 = ?',
-		'3 × 9 = ?',
-		'81 - 9 = ?',
-		'19 + 7 = ?',
-		'36 ÷ 3 = ?',
-		'7 × 70 = ?',
-		'16 - 7 = ?',
-		'42 + 4 = ?',
-		'44 ÷ 2 = ?',
-		'78 × 3 = ?',
-		'89 - 12 = ?',
-		'51 + 23 = ?',
-		'72 ÷ 9 = ?',
-		'9 × 18 = ?',
-		'2 - 89 = ?'
-	],
-	'answer' : [
-		'15',
-		'10',
-		'27',
-		'72',
-		'26',
-		'12',
-		'490',
-		'9',
-		'46',
-		'22',
-		'234',
-		'77',
-		'74',
-		'8',
-		'162',
-		'-87'
-	]
-}
+common.exam = [
+		['6 + 9 = ?', 15],
+		['50 ÷ 5 = ?', 10],
+		['3 × 9 = ?', 27],
+		['81 - 9 = ?', 72],
+
+		['19 + 7 = ?', 26],
+		['36 ÷ 3 = ?', 12],
+		['7 × 70 = ?', 490],
+		['16 - 7 = ?', 9],
+
+		['36 + 19 = ?', 55],
+		['120 ÷ 3 = ?', 40],
+		['19 × 3 = ?', 57],
+		['27 - 16 = ?', 11],
+
+		['42 + 4 = ?', 46],
+		['44 ÷ 2 = ?', 22],
+		['78 × 3 = ?', 234],
+		['536 - 257 = ?', 279],
+
+		['392 + 27 = ?', 419],
+		['338 ÷ 13 = ?', 16],
+		['78 × 15 = ?', 1170],
+		['49 - 27 = ?', 22],
+
+		['32 + 19 = ?', 51],
+		['81 ÷ 9 = ?', 9],
+		['19 × 9 = ?', 171],
+		['89 - 12 = ?', 77],
+
+		['51 + 23 = ?', 74],
+		['72 ÷ 9 = ?', 8],
+		['9 × 18 = ?', 162],
+		['2 - 89 = ?', -87]
+]
+
 common.countBack = function(){
 	if (gameTime === -1) {
 		return;
+	}
+	if(gameTime <= 10){
+		$("countBack").setAttribute("class","count-back count-alert");
 	}
 	gameTime--;
 	$("countBack").innerHTML = gameTime;
@@ -89,7 +91,7 @@ common.starGame = function(){
 		$("keyboard").getElementsByTagName("span")[i].onclick = function(){
 			if(this.innerHTML === '不会'){
 				common.setTopic();
-			}else if (this.innerHTML === common.exam.answer[cacheNum]) {
+			}else if (Number(this.innerHTML) === common.exam[cacheNum][1]) {
 				common.showRight();
 			}else{
 				common.showWrong();
@@ -179,22 +181,22 @@ common.remove = function(id){
 }
 
 common.setTopic = function(){
-	var examLen = common.exam.question.length;
+	var examLen = common.exam.length;
 	var rdExam  = Math.floor(Math.random() * examLen);
 	var rd4  = Math.floor(Math.random() * 4);
-	var random_a  = Math.floor(Math.random() * 99),
-		random_b  = Math.floor(Math.random() * 99),
-		random_c  = Math.floor(Math.random() * 99),
-		random_d  = Math.floor(Math.random() * 99);
+	var random_0  = Math.floor(Math.random() * 99),
+		random_1  = Math.floor(Math.random() * 99),
+		random_2  = Math.floor(Math.random() * 99),
+		random_3  = Math.floor(Math.random() * 99);
 
-	var question = common.exam.question[rdExam],
-		answer   = common.exam.answer[rdExam];
+	var question = common.exam[rdExam][0],
+		answer   = common.exam[rdExam][1];
 
 	//随机生成答案
-	$("result-0").innerHTML = random_a;
-	$("result-1").innerHTML = random_b;
-	$("result-2").innerHTML = random_c;
-	$("result-3").innerHTML = random_d;
+	$("result-0").innerHTML = random_0;
+	$("result-1").innerHTML = random_1;
+	$("result-2").innerHTML = random_2;
+	$("result-3").innerHTML = random_3;
 
 	//提出问题
 	$("question").innerHTML = question;
