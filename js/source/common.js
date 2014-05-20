@@ -4,45 +4,19 @@ var $ = function(id){
 }
 var gameTime = 30; //游戏时间
 var initScore = 0; //游戏分数
+var playCout = 3;  //游戏开始倒数
 var body = document.getElementsByTagName("body")[0];
 var cacheNum;
 var cacheSetinterval;
 
 common.exam = [
-		['6 + 9 = ?', 15],
-		['50 ÷ 5 = ?', 10],
-		['3 × 9 = ?', 27],
-		['81 - 9 = ?', 72],
-
-		['19 + 7 = ?', 26],
-		['36 ÷ 3 = ?', 12],
-		['7 × 70 = ?', 490],
-		['16 - 7 = ?', 9],
-
-		['36 + 19 = ?', 55],
-		['120 ÷ 3 = ?', 40],
-		['19 × 3 = ?', 57],
-		['27 - 16 = ?', 11],
-
-		['42 + 4 = ?', 46],
-		['44 ÷ 2 = ?', 22],
-		['78 × 3 = ?', 234],
-		['536 - 257 = ?', 279],
-
-		['392 + 27 = ?', 419],
-		['338 ÷ 13 = ?', 16],
-		['78 × 15 = ?', 1170],
-		['49 - 27 = ?', 22],
-
-		['32 + 19 = ?', 51],
-		['81 ÷ 9 = ?', 9],
-		['19 × 9 = ?', 171],
-		['89 - 12 = ?', 77],
-
-		['51 + 23 = ?', 74],
-		['72 ÷ 9 = ?', 8],
-		['9 × 18 = ?', 162],
-		['2 - 89 = ?', -87]
+		['6 + 9 = ?', 15], ['50 ÷ 5 = ?', 10], ['3 × 9 = ?', 27], ['81 - 9 = ?', 72],
+		['19 + 7 = ?', 26], ['36 ÷ 3 = ?', 12], ['7 × 70 = ?', 490], ['16 - 7 = ?', 9],
+		['36 + 19 = ?', 55], ['120 ÷ 3 = ?', 40], ['19 × 3 = ?', 57], ['27 - 16 = ?', 11],
+		['42 + 4 = ?', 46], ['44 ÷ 2 = ?', 22], ['78 × 3 = ?', 234], ['536 - 257 = ?', 279],
+		['392 + 27 = ?', 419], ['338 ÷ 13 = ?', 16], ['78 × 15 = ?', 1170], ['49 - 27 = ?', 22],
+		['32 + 19 = ?', 51], ['81 ÷ 9 = ?', 9], ['19 × 9 = ?', 171], ['89 - 12 = ?', 77],
+		['51 + 23 = ?', 74], ['72 ÷ 9 = ?', 8], ['9 × 18 = ?', 162], ['2 - 89 = ?', -87]
 ]
 
 common.countBack = function(){
@@ -54,6 +28,21 @@ common.countBack = function(){
 	}
 	gameTime--;
 	$("countBack").innerHTML = gameTime;
+}
+
+common.playCountNum = function(){
+	if (playCout === 1) {
+		playCout = 'GO!';
+		$("play-cn").innerHTML = playCout;
+		clearInterval(cacheSetinterval);
+		setTimeout(function(){
+			common.createGame();
+			$("game-detial").parentNode.removeChild($("game-detial"));
+		},500)
+		return;
+	}
+	playCout--;
+	$("play-cn").innerHTML = playCout;
 }
 
 //游戏模版
@@ -207,6 +196,12 @@ common.setTopic = function(){
 }
 
 $("go-play").onclick = function(){
-	common.createGame();
-	$("game-detial").parentNode.removeChild($("game-detial"));
+	var tpl = document.createElement("div");
+		tpl.className = 'play-cout-back';
+		tpl.innerHTML = '<span class="play-cn" id="play-cn">3</span>';
+	$("game-detial").appendChild(tpl);
+
+	cacheSetinterval = setInterval(function(){
+		common.playCountNum();
+	},1000)
 }
