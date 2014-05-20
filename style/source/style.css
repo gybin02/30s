@@ -248,6 +248,21 @@ q:after {
 		opacity:1;
 	}
 }
+@-webkit-keyframes heartZoom {
+	0% {
+		font-size:48px;
+	}
+	20% {
+		font-size:58px;
+	}
+	90% {
+		font-size:52px;
+	}
+	100% {
+		font-size:48px;
+	}
+}
+
 .mainboard{
 	width:600px;
 	margin:50px auto 0 auto;
@@ -298,7 +313,7 @@ q:after {
 	line-height:50px;
 	text-align:center;
 	border:1px solid #ddd;
-	border-radius:5px;
+	border-radius:50%;
 	margin:0 10px;
 	cursor:pointer;
 	font-size:14px;
@@ -318,6 +333,13 @@ q:after {
 	font-size:48px;
 	color:#666;
 	font-weight:bold;
+	font-family:'Titillium Web',"Helvetica Neue",Helvetica,Arial,sans-serif;
+	-webkit-animation:heartZoom 1s infinite linear;
+	-moz-animation:heartZoom 1s infinite linear;
+	animation:heartZoom 1s infinite linear;
+}
+.count-alert{
+	color:red;
 }
 .over-mask {
 	position:fixed;
@@ -337,7 +359,7 @@ q:after {
 	position:absolute;
 	left:50%;
 	top:50%;
-	margin:-30px 0 0 -80px;
+	margin:-60px 0 0 -120px;
 	text-align:center;
 }
 .mask-inner .title{
