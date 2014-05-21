@@ -281,11 +281,9 @@
 .play-cout-back{
 	position:absolute;
 	width:100%;
-	height:100%;
-	line-height:100%;
 	left:0;
-	top:0;
-	/*margin:0 0 0 -200px;*/
+	top:50%;
+	margin-top:-130px;
 	text-align:center;
 	line-height:220px;
 }
@@ -443,11 +441,9 @@
 .full-alert {
 	position:fixed;
 	width:100%;
-	/*height:100%;*/
-	/*line-height:100%;*/
 	left:0;
-	/*top:0;*/
-	bottom:0;
+	top:50%;
+	margin-top:-250px;
 	font-size:350px;
 	opacity:1;
 	font-weight:bold;
