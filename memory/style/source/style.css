@@ -434,6 +434,7 @@
 .mask-inner .score .red {
 	color:red;
 	font-weight:bold;
+	margin-right:15px;
 }
 .mask-inner .desc .icon-refresh{
 	margin-right:5px;
