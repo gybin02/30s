@@ -1,4 +1,17 @@
-var common = {};
+var common = {
+	hasClass : function(ele,cls){
+		return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)')); 
+	},
+	addClass : function(ele,cls){
+		if (!this.hasClass(ele,cls)) ele.className += " "+cls;
+	},
+	removeClass : function(ele,cls){
+		if (this.hasClass(ele,cls)) { 
+			var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)'); 
+			ele.className=ele.className.replace(reg,''); 
+		} 
+	}
+};
 var $ = function(id){
 	return document.getElementById(id);
 }
@@ -6,7 +19,7 @@ var gameTime = 30; //游戏时间
 var initScore = 0; //游戏分数
 var playCout = 3;  //游戏开始倒数
 var body = document.getElementsByTagName("body")[0];
-var cacheNum;
+var cacheResult;
 var cacheSetinterval;
 
 common.exam = ['&#xf003e;' ,'&#x344f;', '&#x3451;', '&#x3452;', '&#x3455;', '&#x3456;', '&#x345f;', '&#x345a;' , '&#x3459;', '&#x3457;', '&#x345d;', '&#x345c;', '&#x346c;', '&#x346d;']
@@ -43,12 +56,24 @@ common.createGame = function(){
 		tpl.className = "game-content";
 		tpl.id = "game-content";
 		tpl.innerHTML = '<div class="wrapCont" id="wrapCont">'
-							+'<p class="content" id="question">loading...</p>'
+							+'<ul class="micon-list micon-advance" id="micon-list">'
+								+'<li class="micon item">&#xf003e;</li>'
+								+'<li class="micon item">&#x344f;</li>'
+								+'<li class="micon item">&#x3451;</li>'
+								+'<li class="micon item">&#x3452;</li>'
+								+'<li class="micon item">&#x3455;</li>'
+								+'<li class="micon item">&#x3456;</li>'
+								+'<li class="micon item">&#x345f;</li>'
+								+'<li class="micon item">&#x345a;</li>'
+								+'<li class="micon item">&#xf003e;</li>'
+								+'<li class="micon item">&#x344f;</li>'
+							+'</ul>'
 						+'</div>'
+						+'<div class="q-link"><span class="q-inner">消失的图案是？</span></div>'
 						+'<div class="keyboard" id="keyboard">'
-							+'<p class="kb-top"><span class="square" id="result-0">?</span></p>'
-							+'<p class="kb-middle"><span class="square" id="result-1">?</span><span class="square" id="result-next">不会</span><span class="square" id="result-2">?</span></p>'
-							+'<p class="kb-bottom"><span class="square" id="result-3">?</span></p>'
+							+'<p class="kb-top"><span class="square" id="result-0">&#xf003e;</span></p>'
+							+'<p class="kb-middle"><span class="square" id="result-1">&#x3451;</span><span class="square" id="result-next">忘了</span><span class="square" id="result-2">&#xf003e;</span></p>'
+							+'<p class="kb-bottom"><span class="square" id="result-3">&#x3456;</span></p>'
 						+'</div>'
 						+'<span class="count-back" id="countBack">30</span>';
     $("mainboard").appendChild(tpl);
@@ -70,9 +95,9 @@ common.starGame = function(){
 	var kbLen = $("keyboard").getElementsByTagName("span").length;
 	for(var i = 0;i < kbLen;i++){
 		$("keyboard").getElementsByTagName("span")[i].onclick = function(){
-			if(this.innerHTML === '不会'){
+			if(this.innerHTML === '忘了'){
 				common.setTopic();
-			}else if (Number(this.innerHTML) === common.exam[cacheNum][1]) {
+			}else if (this.innerHTML === cacheResult) {
 				common.showRight();
 			}else{
 				common.showWrong();
@@ -183,42 +208,50 @@ common.setTopic = function(){
 		cacheArr.push(list);
 	}
 
+	//随机发牌算出问题
 	var rdArr = [];
 	var level, levelClass = 'junior';
-	if(initScore < 3){
+	if(initScore < 4){
 		level = 6;
 		levelClass = 'junior';
-	}else if(initScore >= 3 && initScore < 6){
+	}else if(initScore >= 4 && initScore < 8){
 		level = 8;
 		levelClass = 'middle';
-	}else if(initScore >= 6){
+	}else if(initScore >= 8){
 		level = 10;
 		levelClass = 'advance';
 	}
+
 	for(var j = 0;j < level;j++){
 		rdArr.push(j)
 	}
-	for(var k = 0;k < rdArr.length;k++){
-		var ram  = Math.floor(Math.random() * rdArr.length);
+	for(var k = 0;k < level;k++){
+		var ram  = Math.floor(Math.random() * level);
 		tpl += cacheArr[ram];
 	}
 
-	//生成答案
-	$("micon-list").className = 'micon-list ' + levelClass;
+	//生成问题
+	$("micon-list").className = 'micon-list micon-' + levelClass;
 	$("micon-list").innerHTML = tpl;
 
 	//正确答案
-	// $("result-" + rd4).innerHTML = common.exam[rd4];
+	var level_ram = Math.floor(Math.random() * level);
+	var result_html = $("micon-list").getElementsByTagName("li")[level_ram].innerHTML;
+	$("micon-list").getElementsByTagName("li")[level_ram].className = 'micon item result-hide';
+	$("result-" + rd4).innerHTML = result_html;
+	$("result-" + rd4).className = 'square result-answer';
+
+	return cacheResult = result_html;
 }
 
-common.starGame()
-// $("go-play").onclick = function(){
-// 	var tpl = document.createElement("div");
-// 		tpl.className = 'play-cout-back';
-// 		tpl.innerHTML = '<span class="play-cn" id="play-cn">3</span>';
-// 	$("game-detial").appendChild(tpl);
+// common.starGame()
+$("go-play").onclick = function(){
+	var tpl = document.createElement("div");
+		tpl.className = 'play-cout-back';
+		tpl.innerHTML = '<span class="play-cn" id="play-cn">3</span>';
+	$("game-detial").appendChild(tpl);
 
-// 	cacheSetinterval = setInterval(function(){
-// 		common.playCountNum();
-// 	},1000)
-// }
+	cacheSetinterval = setInterval(function(){
+		common.playCountNum();
+	},1000)
+}
