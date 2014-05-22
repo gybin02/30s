@@ -36,12 +36,7 @@ common.countBack = function(){
 }
 
 common.playCountNum = function(){
-	if(playCout === 3){
-		var img = document.createElement("img");
-			img.src = '/30s/memory/style/icon/icon.woff';
-			img.setAttribute("style","display:none;");
-		$("game-detial").appendChild(img);
-	}else if (playCout === 1) {
+	if (playCout === 1) {
 		playCout = 'GO!';
 		$("play-cn").innerHTML = playCout;
 		clearInterval(cacheSetinterval);
@@ -53,6 +48,14 @@ common.playCountNum = function(){
 	}
 	playCout--;
 	$("play-cn").innerHTML = playCout;
+}
+
+//预加载字体图标
+common.cacheIcon = function(){
+	var div = document.createElement("div");
+		div.setAttribute("style","display:none;");
+		div.innerHTML = '<img src="/30s/memory/style/icon/icon.woff"><img src="/30s/memory/style/icon/icon.eot"><img src="/30s/memory/style/icon/icon.ttf"><img src="/30s/memory/style/icon/icon.svg">';
+	$("game-detial").appendChild(div);
 }
 
 //游戏模版
@@ -255,6 +258,8 @@ $("go-play").onclick = function(){
 		tpl.className = 'play-cout-back';
 		tpl.innerHTML = '<span class="play-cn" id="play-cn">3</span>';
 	$("game-detial").appendChild(tpl);
+
+	common.cacheIcon();//点击的时候预加载字体文件
 
 	cacheSetinterval = setInterval(function(){
 		common.playCountNum();
