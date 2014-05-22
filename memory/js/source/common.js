@@ -36,12 +36,12 @@ common.countBack = function(){
 }
 
 common.playCountNum = function(){
-	if (playCout === 1) {
+	if(playCout === 3){
 		var img = document.createElement("img");
 			img.src = '/30s/memory/style/icon/icon.woff';
 			img.setAttribute("style","display:none;");
 		$("game-detial").appendChild(img);
-		
+	}else if (playCout === 1) {
 		playCout = 'GO!';
 		$("play-cn").innerHTML = playCout;
 		clearInterval(cacheSetinterval);
