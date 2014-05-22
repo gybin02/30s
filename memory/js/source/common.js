@@ -10,6 +10,24 @@ var common = {
 			var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)'); 
 			ele.className=ele.className.replace(reg,''); 
 		} 
+	},
+	getOffsetLeft : function(o){
+		var left = 0;
+		var offsetParent = o;
+		while (offsetParent != null && offsetParent != document.body){
+			left += offsetParent.offsetLeft;
+			offsetParent = offsetParent.offsetParent;
+		}
+		return left;
+	},
+	getOffsetTop : function(e){
+		var top = 0;
+		var offsetParent = e;
+		while (offsetParent != null && offsetParent != document.body){
+			top += offsetParent.offsetTop;
+			offsetParent = offsetParent.offsetParent;
+		}
+		return top;
 	}
 };
 var $ = function(id){
@@ -18,6 +36,7 @@ var $ = function(id){
 var gameTime = 30; //游戏时间
 var initScore = 0; //游戏分数
 var playCout = 3;  //游戏开始倒数
+var addTime = 2;   //答题正确增加的事件(s)
 var body = document.getElementsByTagName("body")[0];
 var cacheResult;
 var cacheSetinterval;
@@ -30,9 +49,12 @@ common.countBack = function(){
 	}
 	if(gameTime <= 10){
 		$("countBack").setAttribute("class","count-back count-alert");
+	}else{
+		$("countBack").setAttribute("class","count-back");
 	}
 	gameTime--;
 	$("countBack").innerHTML = gameTime;
+	return gameTime;
 }
 
 common.playCountNum = function(){
@@ -146,15 +168,17 @@ common.creatOverMask = function(){
 
 //级别算出
 common.level = function(score){
-	if(initScore >= 25){
-		return '爱因斯坦';
-	}else if(initScore >= 20 && initScore < 25){
-		return '天才';
-	}else if(initScore >= 15 && initScore < 20){
-		return '靠近天才';
-	}else if(initScore >= 5 && initScore < 15){
-		return '普通人';
-	}else if(initScore < 5){
+	if(initScore >= 70){
+		return '天才！你妈妈知道吗？'
+	}else if(initScore >= 50 && initScore < 70){
+		return '大学生';
+	}else if(initScore >= 30 && initScore < 40){
+		return '高中生';
+	}else if(initScore >= 20 && initScore < 30){
+		return '中学生';
+	}else if(initScore >= 10 && initScore < 20){
+		return '小学生';
+	}else if(initScore < 10){
 		return '脑瘫';
 	}
 }
@@ -168,12 +192,17 @@ common.showRight = function(){
 
     common.setTopic();//换题
 
-    setTimeout(function(){
-    	common.remove("full-alert");
-    },600);
+    common.remove("full-alert",600);//移掉弹层
 
     //答题正确加一分
     initScore++;
+
+    //时间加3秒
+    gameTime = Number(Number(gameTime) + addTime);
+    $("countBack").innerHTML = gameTime;
+
+    //加时间的样式
+    common.addTimeAnimate();
 }
 
 common.showWrong = function(){
@@ -185,13 +214,13 @@ common.showWrong = function(){
 
     common.setTopic();//换题
 
-    setTimeout(function(){
-    	common.remove("full-alert");
-    },600);
+    common.remove("full-alert",600);//移掉弹层
 }
 
-common.remove = function(id){
-	$("full-alert").parentNode.removeChild($("full-alert"));
+common.remove = function(id,time){
+	setTimeout(function(){
+    	$(id).parentNode.removeChild($(id));
+    },time);
 }
 
 common.setTopic = function(){
@@ -217,17 +246,19 @@ common.setTopic = function(){
 	}
 
 	//随机发牌算出问题
-	var rdArr = [];
-	var level, levelClass = 'junior';
+	var rdArr = [], level, levelClass = 'junior';
 	if(initScore < 4){
 		level = 6;
 		levelClass = 'junior';
-	}else if(initScore >= 4 && initScore < 8){
+	}else if(initScore >= 4 && initScore < 10){
 		level = 8;
 		levelClass = 'middle';
-	}else if(initScore >= 8){
+	}else if(initScore >= 10 && initScore < 16){
 		level = 10;
 		levelClass = 'advance';
+	}else if(initScore >= 16){
+		level = 12;
+		levelClass = 'superman';
 	}
 
 	for(var j = 0;j < level;j++){
@@ -252,7 +283,25 @@ common.setTopic = function(){
 	return cacheResult = result_html;
 }
 
-// common.starGame()
+//显示+3秒效果
+common.addTimeAnimate = function(){
+	var left = common.getOffsetLeft($("countBack")),
+		top = common.getOffsetTop($("countBack")),
+		width = $("countBack").clientWidth,
+		height = $("countBack").clientHeight;
+
+	var em = document.createElement("em");
+		em.className = "add-time-out";
+		em.id = "add-time-out";
+		em.innerHTML = "+" + addTime;
+		em.setAttribute("style","width:"+width+"px;height:"+height+"px;line-height:"+height+"px;left:"+left+"px;top:"+top+"px;")
+
+	body.appendChild(em);
+
+	common.remove("add-time-out",1000);//移掉弹层
+}
+
+// common.starGame() //模板调试的时候开启
 $("go-play").onclick = function(){
 	var tpl = document.createElement("div");
 		tpl.className = 'play-cout-back';
@@ -265,3 +314,4 @@ $("go-play").onclick = function(){
 		common.playCountNum();
 	},1000)
 }
+console.log($("go-play"))
