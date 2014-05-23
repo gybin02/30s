@@ -252,6 +252,52 @@
 		visibility:hidden;
 	}
 }
+@-moz-keyframes resultHide {
+	0% {
+		visibility:visible;
+	}
+	100% {
+		visibility:hidden;
+	}
+}
+@keyframes resultHide {
+	0% {
+		visibility:visible;
+	}
+	100% {
+		visibility:hidden;
+	}
+}
+@-webkit-keyframes addTimeOut {
+	0% {
+		top:0;
+		opacity:1;
+	}
+	100% {
+		top:-20px;
+		opacity:0;
+	}
+}
+@-moz-keyframes addTimeOut {
+	0% {
+		top:0;
+		opacity:1;
+	}
+	100% {
+		top:-20px;
+		opacity:0;
+	}
+}
+@keyframes addTimeOut {
+	0% {
+		top:0;
+		opacity:1;
+	}
+	100% {
+		top:-20px;
+		opacity:0;
+	}
+}
 
 .mainboard{
 	width:600px;
@@ -312,6 +358,9 @@
 }
 .micon-advance{
 	width:280px;
+}
+.micon-superman{
+	width:320px;
 }
 .micon-list .item{
 	display:inline-block;
@@ -389,6 +438,21 @@
 .count-alert{
 	color:red;
 }
+.add-time-out{
+	position:absolute;
+	left:0;
+	top:0;
+	z-index:100;
+	font-size:30px;
+	font-weight:bold;
+	color:red;
+	opacity:0;
+
+	-webkit-animation:addTimeOut .8s ease;
+	-moz-animation:addTimeOut .8s ease;
+	animation:addTimeOut .8s ease;
+}
+
 .over-mask {
 	position:fixed;
 	left:0;

@@ -10,6 +10,24 @@ var common = {
 			var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)'); 
 			ele.className=ele.className.replace(reg,''); 
 		} 
+	},
+	getOffsetLeft : function(o){
+		var left = 0;
+		var offsetParent = o;
+		while (offsetParent != null && offsetParent != document.body){
+			left += offsetParent.offsetLeft;
+			offsetParent = offsetParent.offsetParent;
+		}
+		return left;
+	},
+	getOffsetTop : function(e){
+		var top = 0;
+		var offsetParent = e;
+		while (offsetParent != null && offsetParent != document.body){
+			top += offsetParent.offsetTop;
+			offsetParent = offsetParent.offsetParent;
+		}
+		return top;
 	}
 };
 var $ = function(id){
@@ -18,11 +36,15 @@ var $ = function(id){
 var gameTime = 30; //游戏时间
 var initScore = 0; //游戏分数
 var playCout = 3;  //游戏开始倒数
+var addTime = 2;   //答题正确增加的事件(s)
 var body = document.getElementsByTagName("body")[0];
 var cacheResult;
 var cacheSetinterval;
 
-common.exam = ['&#xf003e;' ,'&#x344f;', '&#x3451;', '&#x3452;', '&#x3455;', '&#x3456;', '&#x345f;', '&#x345a;' , '&#x3459;', '&#x3457;', '&#x345d;', '&#x345c;', '&#x346c;', '&#x346d;']
+// common.exam = ['&#xf003e;' ,'&#x344f;', '&#x3451;', '&#x3452;', '&#x3455;', '&#x3456;', '&#x345f;', '&#x345a;' , '&#x3459;', '&#x3457;', '&#x345d;', '&#x345c;', '&#x346c;', '&#x346d;']
+common.exam = ['&#xf004e;' ,'&#xf0051;' ,'&#xf0057;' ,'&#xf0059;' ,'&#xf005f;' ,'&#xf0064;' ,'&#xf0066;' ,'&#xf0069;' ,'&#xf006a;' ,'&#xf0075;' ,'&#xf0078;' ,'&#xf007c;' ,'&#xf0083;' ,'&#xf0085;' ,'&#xf0091;' ,'&#xf0095;' ,'&#xf009a;' ,'&#xf00a5;' ,'&#xf00a7;' ,'&#xf00b6;' ,'&#xf019a;' ,'&#xf01af;' ,'&#xf01b0;' ,'&#xf01c7;' ,'&#xf01ca;' ,'&#xf01d4;' ,'&#xf01d5;' ,'&#xf01ef;' ,'&#xf01f0;' ,'&#xf01f3;' ,'&#xf0200;' ,'&#x3432;' ,'&#x3450;' ,'&#x3452;' ,'&#x3453;' ,'&#x3455;' ,'&#x3457;'
+,'&#x3459;' ,'&#xf027f;' ,'&#x3432;' ,'&#x3438;' ,'&#x343e;' ,'&#x3448;' ,'&#x344f;' ,'&#x3451;' ,'&#x3452;' ,'&#x3454;' ,'&#x3455;' ,'&#x3456;' ,'&#x3457;' ,'&#x3458;' ,'&#x3459;' ,'&#x345a;' ,'&#x345c;' ,'&#x345d;' ,'&#x345f;' ,'&#x3460;' ,'&#x3461;' ,'&#x3469;' ,'&#x346c;' ,'&#x346d;' ,'&#x346e;' ,'&#x3481;' ,'&#x3485;'
+,'&#x3486;' ,'&#xf029d;' ,'&#xf0007;' ,'&#xf003e;' ,'&#xe63e;']
 
 common.countBack = function(){
 	if (gameTime === -1) {
@@ -30,9 +52,12 @@ common.countBack = function(){
 	}
 	if(gameTime <= 10){
 		$("countBack").setAttribute("class","count-back count-alert");
+	}else{
+		$("countBack").setAttribute("class","count-back");
 	}
 	gameTime--;
 	$("countBack").innerHTML = gameTime;
+	return gameTime;
 }
 
 common.playCountNum = function(){
@@ -50,24 +75,21 @@ common.playCountNum = function(){
 	$("play-cn").innerHTML = playCout;
 }
 
+//预加载字体图标
+common.cacheIcon = function(){
+	var div = document.createElement("div");
+		div.setAttribute("style","display:none;");
+		div.innerHTML = '<img src="/30s/memory/style/icon/icon.woff"><img src="/30s/memory/style/icon/icon.eot"><img src="/30s/memory/style/icon/icon.ttf"><img src="/30s/memory/style/icon/icon.svg">';
+	$("game-detial").appendChild(div);
+}
+
 //游戏模版
 common.createGame = function(){
 	var tpl = document.createElement("div");
 		tpl.className = "game-content";
 		tpl.id = "game-content";
 		tpl.innerHTML = '<div class="wrapCont" id="wrapCont">'
-							+'<ul class="micon-list micon-advance" id="micon-list">'
-								+'<li class="micon item">&#xf003e;</li>'
-								+'<li class="micon item">&#x344f;</li>'
-								+'<li class="micon item">&#x3451;</li>'
-								+'<li class="micon item">&#x3452;</li>'
-								+'<li class="micon item">&#x3455;</li>'
-								+'<li class="micon item">&#x3456;</li>'
-								+'<li class="micon item">&#x345f;</li>'
-								+'<li class="micon item">&#x345a;</li>'
-								+'<li class="micon item">&#xf003e;</li>'
-								+'<li class="micon item">&#x344f;</li>'
-							+'</ul>'
+							+'<ul class="micon-list micon-advance" id="micon-list"></ul>'
 						+'</div>'
 						+'<div class="q-link"><span class="q-inner">消失的图案是？</span></div>'
 						+'<div class="keyboard" id="keyboard">'
@@ -138,16 +160,24 @@ common.creatOverMask = function(){
 
 //级别算出
 common.level = function(score){
-	if(initScore >= 25){
-		return '爱因斯坦';
-	}else if(initScore >= 20 && initScore < 25){
-		return '天才';
-	}else if(initScore >= 15 && initScore < 20){
-		return '靠近天才';
-	}else if(initScore >= 5 && initScore < 15){
-		return '普通人';
-	}else if(initScore < 5){
+	if(score < 10){
 		return '脑瘫';
+	}else if(score >= 10 && score < 20){
+		return '幼儿园';
+	}else if(score >= 20 && score < 30){
+		return '小学生';
+	}else if(score >= 30 && score < 40){
+		return '中学生';
+	}else if(score >= 40 && score < 50){
+		return '大学生';
+	}else if(score >= 50 && score < 60){
+		return '研究生';
+	}else if(score >= 60 && score < 80){
+		return '博士生';
+	}else if(score >= 80 && score < 150){
+		return '天才！你妈妈知道吗？';
+	}else if(score >= 150){
+		return '骚年，收我为徒吧';
 	}
 }
 
@@ -160,12 +190,17 @@ common.showRight = function(){
 
     common.setTopic();//换题
 
-    setTimeout(function(){
-    	common.remove("full-alert");
-    },600);
+    common.remove("full-alert",600);//移掉弹层
 
     //答题正确加一分
     initScore++;
+
+    //时间加3秒
+    gameTime = Number(Number(gameTime) + addTime);
+    $("countBack").innerHTML = gameTime;
+
+    //加时间的样式
+    common.addTimeAnimate();
 }
 
 common.showWrong = function(){
@@ -177,13 +212,13 @@ common.showWrong = function(){
 
     common.setTopic();//换题
 
-    setTimeout(function(){
-    	common.remove("full-alert");
-    },600);
+    common.remove("full-alert",600);//移掉弹层
 }
 
-common.remove = function(id){
-	$("full-alert").parentNode.removeChild($("full-alert"));
+common.remove = function(id,time){
+	setTimeout(function(){
+    	$(id).parentNode.removeChild($(id));
+    },time);
 }
 
 common.setTopic = function(){
@@ -209,24 +244,23 @@ common.setTopic = function(){
 	}
 
 	//随机发牌算出问题
-	var rdArr = [];
 	var level, levelClass = 'junior';
 	if(initScore < 4){
 		level = 6;
 		levelClass = 'junior';
-	}else if(initScore >= 4 && initScore < 8){
+	}else if(initScore >= 4 && initScore < 10){
 		level = 8;
 		levelClass = 'middle';
-	}else if(initScore >= 8){
+	}else if(initScore >= 10 && initScore < 16){
 		level = 10;
 		levelClass = 'advance';
+	}else if(initScore >= 16){
+		level = 12;
+		levelClass = 'superman';
 	}
 
-	for(var j = 0;j < level;j++){
-		rdArr.push(j)
-	}
 	for(var k = 0;k < level;k++){
-		var ram  = Math.floor(Math.random() * level);
+		var ram  = Math.floor(Math.random() * examLen);
 		tpl += cacheArr[ram];
 	}
 
@@ -244,12 +278,32 @@ common.setTopic = function(){
 	return cacheResult = result_html;
 }
 
-// common.starGame()
+//显示+3秒效果
+common.addTimeAnimate = function(){
+	var left = common.getOffsetLeft($("countBack")),
+		top = common.getOffsetTop($("countBack")),
+		width = $("countBack").clientWidth,
+		height = $("countBack").clientHeight;
+
+	var em = document.createElement("em");
+		em.className = "add-time-out";
+		em.id = "add-time-out";
+		em.innerHTML = "+" + addTime;
+		em.setAttribute("style","width:"+width+"px;height:"+height+"px;line-height:"+height+"px;left:"+left+"px;top:"+top+"px;")
+
+	body.appendChild(em);
+
+	common.remove("add-time-out",1000);//移掉弹层
+}
+
+// common.starGame() //模板调试的时候开启
 $("go-play").onclick = function(){
 	var tpl = document.createElement("div");
 		tpl.className = 'play-cout-back';
 		tpl.innerHTML = '<span class="play-cn" id="play-cn">3</span>';
 	$("game-detial").appendChild(tpl);
+
+	common.cacheIcon();//点击的时候预加载字体文件
 
 	cacheSetinterval = setInterval(function(){
 		common.playCountNum();
