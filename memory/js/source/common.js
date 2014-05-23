@@ -41,7 +41,10 @@ var body = document.getElementsByTagName("body")[0];
 var cacheResult;
 var cacheSetinterval;
 
-common.exam = ['&#xf003e;' ,'&#x344f;', '&#x3451;', '&#x3452;', '&#x3455;', '&#x3456;', '&#x345f;', '&#x345a;' , '&#x3459;', '&#x3457;', '&#x345d;', '&#x345c;', '&#x346c;', '&#x346d;']
+// common.exam = ['&#xf003e;' ,'&#x344f;', '&#x3451;', '&#x3452;', '&#x3455;', '&#x3456;', '&#x345f;', '&#x345a;' , '&#x3459;', '&#x3457;', '&#x345d;', '&#x345c;', '&#x346c;', '&#x346d;']
+common.exam = ['&#xf004e;' ,'&#xf0051;' ,'&#xf0057;' ,'&#xf0059;' ,'&#xf005f;' ,'&#xf0064;' ,'&#xf0066;' ,'&#xf0069;' ,'&#xf006a;' ,'&#xf0075;' ,'&#xf0078;' ,'&#xf007c;' ,'&#xf0083;' ,'&#xf0085;' ,'&#xf0091;' ,'&#xf0095;' ,'&#xf009a;' ,'&#xf00a5;' ,'&#xf00a7;' ,'&#xf00b6;' ,'&#xf019a;' ,'&#xf01af;' ,'&#xf01b0;' ,'&#xf01c7;' ,'&#xf01ca;' ,'&#xf01d4;' ,'&#xf01d5;' ,'&#xf01ef;' ,'&#xf01f0;' ,'&#xf01f3;' ,'&#xf0200;' ,'&#x3432;' ,'&#x3450;' ,'&#x3452;' ,'&#x3453;' ,'&#x3455;' ,'&#x3457;'
+,'&#x3459;' ,'&#xf027f;' ,'&#x3432;' ,'&#x3438;' ,'&#x343e;' ,'&#x3448;' ,'&#x344f;' ,'&#x3451;' ,'&#x3452;' ,'&#x3454;' ,'&#x3455;' ,'&#x3456;' ,'&#x3457;' ,'&#x3458;' ,'&#x3459;' ,'&#x345a;' ,'&#x345c;' ,'&#x345d;' ,'&#x345f;' ,'&#x3460;' ,'&#x3461;' ,'&#x3469;' ,'&#x346c;' ,'&#x346d;' ,'&#x346e;' ,'&#x3481;' ,'&#x3485;'
+,'&#x3486;' ,'&#xf029d;' ,'&#xf0007;' ,'&#xf003e;' ,'&#xe63e;']
 
 common.countBack = function(){
 	if (gameTime === -1) {
@@ -86,18 +89,7 @@ common.createGame = function(){
 		tpl.className = "game-content";
 		tpl.id = "game-content";
 		tpl.innerHTML = '<div class="wrapCont" id="wrapCont">'
-							+'<ul class="micon-list micon-advance" id="micon-list">'
-								+'<li class="micon item">&#xf003e;</li>'
-								+'<li class="micon item">&#x344f;</li>'
-								+'<li class="micon item">&#x3451;</li>'
-								+'<li class="micon item">&#x3452;</li>'
-								+'<li class="micon item">&#x3455;</li>'
-								+'<li class="micon item">&#x3456;</li>'
-								+'<li class="micon item">&#x345f;</li>'
-								+'<li class="micon item">&#x345a;</li>'
-								+'<li class="micon item">&#xf003e;</li>'
-								+'<li class="micon item">&#x344f;</li>'
-							+'</ul>'
+							+'<ul class="micon-list micon-advance" id="micon-list"></ul>'
 						+'</div>'
 						+'<div class="q-link"><span class="q-inner">消失的图案是？</span></div>'
 						+'<div class="keyboard" id="keyboard">'
@@ -168,18 +160,24 @@ common.creatOverMask = function(){
 
 //级别算出
 common.level = function(score){
-	if(initScore >= 70){
-		return '天才！你妈妈知道吗？'
-	}else if(initScore >= 50 && initScore < 70){
-		return '大学生';
-	}else if(initScore >= 30 && initScore < 40){
-		return '高中生';
-	}else if(initScore >= 20 && initScore < 30){
-		return '中学生';
-	}else if(initScore >= 10 && initScore < 20){
-		return '小学生';
-	}else if(initScore < 10){
+	if(score < 10){
 		return '脑瘫';
+	}else if(score >= 10 && score < 20){
+		return '幼儿园';
+	}else if(score >= 20 && score < 30){
+		return '小学生';
+	}else if(score >= 30 && score < 40){
+		return '中学生';
+	}else if(score >= 40 && score < 50){
+		return '大学生';
+	}else if(score >= 50 && score < 60){
+		return '研究生';
+	}else if(score >= 60 && score < 80){
+		return '博士生';
+	}else if(score >= 80 && score < 150){
+		return '天才！你妈妈知道吗？';
+	}else if(score >= 150){
+		return '骚年，收我为徒吧';
 	}
 }
 
@@ -246,7 +244,7 @@ common.setTopic = function(){
 	}
 
 	//随机发牌算出问题
-	var rdArr = [], level, levelClass = 'junior';
+	var level, levelClass = 'junior';
 	if(initScore < 4){
 		level = 6;
 		levelClass = 'junior';
@@ -261,11 +259,8 @@ common.setTopic = function(){
 		levelClass = 'superman';
 	}
 
-	for(var j = 0;j < level;j++){
-		rdArr.push(j)
-	}
 	for(var k = 0;k < level;k++){
-		var ram  = Math.floor(Math.random() * level);
+		var ram  = Math.floor(Math.random() * examLen);
 		tpl += cacheArr[ram];
 	}
 
@@ -314,4 +309,3 @@ $("go-play").onclick = function(){
 		common.playCountNum();
 	},1000)
 }
-console.log($("go-play"))
