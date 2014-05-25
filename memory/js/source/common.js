@@ -75,11 +75,15 @@ common.playCountNum = function(){
 	$("play-cn").innerHTML = playCout;
 }
 
-//预加载字体图标
+//预加载游戏文件
 common.cacheIcon = function(){
+	var tpl, cache = ['/30s/memory/images/icon-over-2.png', '/30s/memory/style/icon/icon.woff', '/30s/memory/style/icon/icon.eot', '/30s/memory/style/icon/icon.ttf', '/30s/memory/style/icon/icon.svg'];
+	for(var i = 0;i < cache.length;i++){
+		tpl += '<img src="'+cache[i]+'" />';
+	}
 	var div = document.createElement("div");
 		div.setAttribute("style","display:none;");
-		div.innerHTML = '<img src="/30s/memory/style/icon/icon.woff"><img src="/30s/memory/style/icon/icon.eot"><img src="/30s/memory/style/icon/icon.ttf"><img src="/30s/memory/style/icon/icon.svg">';
+		div.innerHTML = tpl;
 	$("game-detial").appendChild(div);
 }
 
@@ -310,7 +314,7 @@ $("go-play").onclick = function(){
 		tpl.innerHTML = '<span class="play-cn" id="play-cn">3</span>';
 	$("game-detial").appendChild(tpl);
 
-	common.cacheIcon();//点击的时候预加载字体文件
+	common.cacheIcon();//点击的时候预加载游戏文件
 
 	cacheSetinterval = setInterval(function(){
 		common.playCountNum();
