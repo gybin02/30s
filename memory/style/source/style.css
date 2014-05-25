@@ -61,7 +61,7 @@
 	background-image:url(../images/start-logo.png);
 	position:absolute;
 	left:0;
-	top:45%;
+	bottom:-75px;
 }
 
 .btn-normal{
@@ -298,21 +298,64 @@
 		opacity:0;
 	}
 }
-@-webkit-keyframes shake {
+/*@-webkit-keyframes shake {
 	0% {
-		-webkit-transform:translateY(0);
+		-webkit-transform:translateX(0);
 	}
 	25% {
-		-webkit-transform:translateY(-10px);
+		-webkit-transform:translateX(-10px);
 	}
 	50% {
-		-webkit-transform:translateY(-30px);
+		-webkit-transform:translateX(-30px);
 	}
 	75% {
-		-webkit-transform:translateY(30px);
+		-webkit-transform:translateX(30px);
 	}
 	100% {
-		-webkit-transform:translateY(0);
+		-webkit-transform:translateX(0);
+	}
+}
+*/
+@-webkit-keyframes shake {
+	0% {
+		-webkit-transform:rotate(0deg);
+	}
+	33% {
+		-webkit-transform:rotate(-5deg);
+	}
+	66% {
+		-webkit-transform:rotate(5deg);
+	}
+	100% {
+		-webkit-transform:rotate(0deg);
+	}
+}
+@-moz-keyframes shake {
+	0% {
+		-moz-transform:rotate(0deg);
+	}
+	33% {
+		-moz-transform:rotate(-5deg);
+	}
+	66% {
+		-moz-transform:rotate(5deg);
+	}
+	100% {
+		-moz-transform:rotate(0deg);
+	}
+}
+@keyframes shake {
+	0% {
+		transform:rotate(0deg);
+	}
+	33% {
+		transform:rotate(-5deg);
+	}
+	66% {
+		transform:rotate(5deg);
+	}
+	100% {
+		transform:rotate(0deg);
 	}
 }
 
@@ -324,10 +367,10 @@
 	padding-top:150px;
 }
 .game-detial{
-	padding-top:50%;
-	padding-left:170px;
+	padding-top:60%;
+	padding-left:150px;
 	position:relative;
-	margin-top:-25%;
+	margin-top:-20%;
 }
 .game-detial .info-list{
 	font-size:16px;
@@ -343,13 +386,12 @@
 	font-size:24px;
 }
 .play-cout-back{
-	position:absolute;
+	position:fixed;
 	width:100%;
 	left:0;
 	top:50%;
-	margin-top:-130px;
+	margin-top:-300px;
 	text-align:center;
-	line-height:220px;
 }
 .play-cout-back .play-cn{
 	font-size:300px;
@@ -492,8 +534,8 @@
 }
 .mask-inner {
 	/*position:absolute;*/
-	margin-left:50%;
-	margin-top:50%;
+	margin-left:-100%;
+	margin-top:-60%;
 	/*margin:-60px 0 0 -120px;*/
 	text-align:center;
 }
@@ -530,16 +572,16 @@
 .icon-over{
 	display:block;
 	margin:0 auto 20px auto;
-	-webkit-animation:shake .3s infinite linear;
-	-moz-animation:shake .3s infinite linear;
-	animation:shake .3s infinite linear;
+	-webkit-animation:shake .1s infinite linear;
+	-moz-animation:shake .1s infinite linear;
+	animation:shake .1s infinite linear;
 }
-.over-1{
+.over-0{
 	width:240px;
 	height:240px;
 	background:url(../images/icon-over-1.png) no-repeat;
 }
-.over-2{
+.over-1{
 	width:380px;
 	height:225px;
 	background:url(../images/icon-over-2.png) no-repeat;
