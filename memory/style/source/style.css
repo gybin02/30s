@@ -324,9 +324,10 @@
 	padding-top:150px;
 }
 .game-detial{
-	padding-top:45%;
-	position:relative;
+	padding-top:50%;
 	padding-left:170px;
+	position:relative;
+	margin-top:-25%;
 }
 .game-detial .info-list{
 	font-size:16px;
