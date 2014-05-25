@@ -141,17 +141,20 @@ common.refreshGame = function(){
 
 //结束模版
 common.creatOverMask = function(){
+	var ram  = Math.floor(Math.random() * 2);
 	clearInterval(cacheSetinterval);
 	var level = this.level(initScore);
+	
 	var tpl = document.createElement("div");
 		tpl.className = "over-mask";
 		tpl.id = "over-mask";
-		tpl.innerHTML = '<div class="mask-inner">'
+		tpl.innerHTML = '<div class="mask-wrap"><div class="mask-inner">'
+								+'<div class="icon-over over-'+ram+'"></div>'
 								+'<p class="title"><i class="iconfont icon-timeout">&#xe660;</i>时间到啦 :(</p>'
 								+'<p class="score">您的得分是：<span class="red" id="final-score">'+initScore+'</span> 等级是：<span class="red" id="final-level">'+level+'</span></p>'
 								+'<p class="desc"><a href="javascript:;" class="refresh" id="refresh-game"><i class="iconfont icon-refresh">&#xf0005;</i>再来一次</a></p>'
 							+'</div>'
-						+'</div>';
+						+'</div></div>';
     body.appendChild(tpl);
     document.getElementsByTagName("title")[0].innerHTML = "最强右脑—最终得分"+initScore+";级别是:"+level;
 
@@ -181,6 +184,7 @@ common.level = function(score){
 	}
 }
 
+//答题正确
 common.showRight = function(){
 	var tpl = document.createElement("div");
 		tpl.setAttribute("class","iconfont full-alert alert-right");
@@ -203,6 +207,7 @@ common.showRight = function(){
     common.addTimeAnimate();
 }
 
+//答题错误
 common.showWrong = function(){
 	var tpl = document.createElement("div");
 		tpl.setAttribute("class","iconfont full-alert alert-wrong");
@@ -215,12 +220,14 @@ common.showWrong = function(){
     common.remove("full-alert",600);//移掉弹层
 }
 
+//移除对象函数
 common.remove = function(id,time){
 	setTimeout(function(){
     	$(id).parentNode.removeChild($(id));
     },time);
 }
 
+//出题
 common.setTopic = function(){
 	var examLen = common.exam.length;
 	var rdExam  = Math.floor(Math.random() * examLen);
@@ -278,7 +285,7 @@ common.setTopic = function(){
 	return cacheResult = result_html;
 }
 
-//显示+3秒效果
+//显示+2秒效果
 common.addTimeAnimate = function(){
 	var left = common.getOffsetLeft($("countBack")),
 		top = common.getOffsetTop($("countBack")),
