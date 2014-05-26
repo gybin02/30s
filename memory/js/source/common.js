@@ -1,3 +1,4 @@
+//一些简单函数
 var common = {
 	hasClass : function(ele,cls){
 		return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)')); 
@@ -41,11 +42,13 @@ var body = document.getElementsByTagName("body")[0];
 var cacheResult;
 var cacheSetinterval;
 
+//iconfont字符
 // common.exam = ['&#xf003e;' ,'&#x344f;', '&#x3451;', '&#x3452;', '&#x3455;', '&#x3456;', '&#x345f;', '&#x345a;' , '&#x3459;', '&#x3457;', '&#x345d;', '&#x345c;', '&#x346c;', '&#x346d;']
 common.exam = ['&#xf004e;' ,'&#xf0051;' ,'&#xf0057;' ,'&#xf0059;' ,'&#xf005f;' ,'&#xf0064;' ,'&#xf0066;' ,'&#xf0069;' ,'&#xf006a;' ,'&#xf0075;' ,'&#xf0078;' ,'&#xf007c;' ,'&#xf0083;' ,'&#xf0085;' ,'&#xf0091;' ,'&#xf0095;' ,'&#xf009a;' ,'&#xf00a5;' ,'&#xf00a7;' ,'&#xf00b6;' ,'&#xf019a;' ,'&#xf01af;' ,'&#xf01b0;' ,'&#xf01c7;' ,'&#xf01ca;' ,'&#xf01d4;' ,'&#xf01d5;' ,'&#xf01ef;' ,'&#xf01f0;' ,'&#xf01f3;' ,'&#xf0200;' ,'&#x3432;' ,'&#x3450;' ,'&#x3452;' ,'&#x3453;' ,'&#x3455;' ,'&#x3457;'
 ,'&#x3459;' ,'&#xf027f;' ,'&#x3432;' ,'&#x3438;' ,'&#x343e;' ,'&#x3448;' ,'&#x344f;' ,'&#x3451;' ,'&#x3452;' ,'&#x3454;' ,'&#x3455;' ,'&#x3456;' ,'&#x3457;' ,'&#x3458;' ,'&#x3459;' ,'&#x345a;' ,'&#x345c;' ,'&#x345d;' ,'&#x345f;' ,'&#x3460;' ,'&#x3461;' ,'&#x3469;' ,'&#x346c;' ,'&#x346d;' ,'&#x346e;' ,'&#x3481;' ,'&#x3485;'
 ,'&#x3486;' ,'&#xf029d;' ,'&#xf0007;' ,'&#xf003e;' ,'&#xe63e;']
 
+//倒数计数器
 common.countBack = function(){
 	if (gameTime === -1) {
 		return;
@@ -60,6 +63,7 @@ common.countBack = function(){
 	return gameTime;
 }
 
+//开始游戏倒数
 common.playCountNum = function(){
 	if (playCout === 1) {
 		playCout = 'GO!';
@@ -234,18 +238,13 @@ common.remove = function(id,time){
 //出题
 common.setTopic = function(){
 	var examLen = common.exam.length;
-	var rdExam  = Math.floor(Math.random() * examLen);
 	var rd4  = Math.floor(Math.random() * 4);
-	var random_0  = Math.floor(Math.random() * examLen),
-		random_1  = Math.floor(Math.random() * examLen),
-		random_2  = Math.floor(Math.random() * examLen),
-		random_3  = Math.floor(Math.random() * examLen);
 
 	//随机生成答案
-	$("result-0").innerHTML = common.exam[random_0];
-	$("result-1").innerHTML = common.exam[random_1];
-	$("result-2").innerHTML = common.exam[random_2];
-	$("result-3").innerHTML = common.exam[random_3];
+	for(var a = 0;a < 4;a++){
+		var ram_a = Math.floor(Math.random() * examLen);
+		$("result-"+a).innerHTML = common.exam[ram_a];
+	}
 
 	//随机排列答案
 	var list = '', cacheArr = [], tpl = '';
