@@ -81,7 +81,7 @@ common.playCountNum = function(){
 
 //预加载游戏文件
 common.cacheIcon = function(){
-	var tpl, cache = ['/30s/memory/images/icon-over-2.png', '/30s/memory/style/icon/icon.woff', '/30s/memory/style/icon/icon.eot', '/30s/memory/style/icon/icon.ttf', '/30s/memory/style/icon/icon.svg'];
+	var tpl, cache = ['/30s/memory/images/icon-over-1.png', '/30s/memory/images/icon-over-2.png', '/30s/memory/style/icon/icon.woff', '/30s/memory/style/icon/icon.eot', '/30s/memory/style/icon/icon.ttf', '/30s/memory/style/icon/icon.svg'];
 	for(var i = 0;i < cache.length;i++){
 		tpl += '<img src="'+cache[i]+'" />';
 	}
