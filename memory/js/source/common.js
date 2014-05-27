@@ -200,8 +200,6 @@ common.showRight = function(){
 		tpl.id = 'full-alert';
     body.appendChild(tpl);
 
-    common.setTopic();//换题
-
     common.remove("full-alert",600);//移掉弹层
 
     //答题正确加一分
@@ -213,6 +211,11 @@ common.showRight = function(){
 
     //加时间的样式
     common.addTimeAnimate();
+
+	//换题
+	setTimeout(function(){
+    	common.setTopic();
+	},600)
 }
 
 //答题错误
@@ -223,9 +226,12 @@ common.showWrong = function(){
 		tpl.id = 'full-alert';
     body.appendChild(tpl);
 
-    common.setTopic();//换题
-
     common.remove("full-alert",600);//移掉弹层
+
+    //换题
+	setTimeout(function(){
+    	common.setTopic();
+	},600)
 }
 
 //移除对象函数
