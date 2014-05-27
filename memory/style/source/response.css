@@ -84,6 +84,7 @@ body{
 	margin:0 auto;
 	background-image:url(../images/prison.png);
 	margin-bottom:30px;
+	bottom:auto;
 }
 .icon-start-logo:after{
 	/*display:block;*/
@@ -115,7 +116,7 @@ body{
 }
 .count-back{
 	left:0;
-	top:110px;
+	top:180px;
 	background:#fff;
 }
 .keyboard .square:hover{
@@ -126,5 +127,27 @@ body{
 	border:1px solid #92AFED;
 	box-shadow:0 0 5px #92afec, inset 1px 1px 2px rgba(0,0,0,.1);
 }
-
-
+.mask-inner p{
+	padding:0 5%;
+}
+.mask-inner .title{
+	font-size:24px;
+}
+.mask-inner .desc,
+.mask-inner .score{
+	font-size:12px;
+}
+.icon-over{
+	background-size:cover;
+}
+.over-1{
+	width:280px;
+	height:166px;
+}
+.over-2{
+	width:140px;
+	height:140px;
+}
+.mask-inner .title .icon-timeout{
+	font-size:30px;
+}
