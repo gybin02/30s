@@ -565,8 +565,19 @@
 	font-weight:bold;
 	margin-right:15px;
 }
-.mask-inner .desc .icon-refresh{
+.refresh .icon-refresh{
+	display:inline-block;
 	margin-right:5px;
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+}
+.refresh:hover .icon-refresh{
+	display:inline-block;
+	margin-right:5px;
+	-webkit-transform:rotate(360deg);
+	-moz-transform:rotate(360deg);
+	transform:rotate(360deg);
 }
 
 .icon-over{
