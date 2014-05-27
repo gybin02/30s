@@ -84,6 +84,7 @@ body{
 	margin:0 auto;
 	background-image:url(../images/prison.png);
 	margin-bottom:30px;
+	bottom:auto;
 }
 .icon-start-logo:after{
 	/*display:block;*/
