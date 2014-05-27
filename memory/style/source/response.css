@@ -116,7 +116,7 @@ body{
 }
 .count-back{
 	left:0;
-	top:110px;
+	top:180px;
 	background:#fff;
 }
 .keyboard .square:hover{
@@ -145,4 +145,6 @@ body{
 	width:140px;
 	height:140px;
 }
-
+.mask-inner .title .icon-timeout{
+	font-size:30px;
+}
