@@ -107,7 +107,9 @@ html,body{
     overflow:hidden;
 	margin:0 auto;
     background-image:url(../images/logo.png);
+    background-image:-webkit-image-set(url(../images/logo.png) 1x,url(../images/logo@2x.png) 2x);
     background-repeat:no-repeat;
+
     -webkit-animation:brainZoom 1s infinite linear;
     -moz-animation:brainZoom 1s infinite linear;
     animation:brainZoom 1s infinite linear;
@@ -134,6 +136,7 @@ html,body{
     color:#666;
     font-size:24px;
     background:#fff;
+    
     -webkit-transition:all .2s ease-in-out;
     -moz-transition:all .2s ease-in-out;
     transition:all .2s ease-in-out;
