@@ -41,11 +41,18 @@
 .icon-start-logo{
 	width:200px;
 	height:315px;
+	line-height:999px;
 	background-size:cover;
 	background-image:url(../images/start-logo.png);
 	position:absolute;
 	left:0;
-	top:45%;
+	bottom:-75px;
+	overflow:hidden;
+}
+.icon-start-logo img{
+	position:absolute;
+	left:-999px;
+	top:0;
 }
 
 .btn-normal{
@@ -229,14 +236,109 @@
 	}
 }
 
+@-webkit-keyframes addTimeOut {
+	0% {
+		top:0;
+		opacity:1;
+	}
+	100% {
+		top:-20px;
+		opacity:0;
+	}
+}
+@-moz-keyframes addTimeOut {
+	0% {
+		top:0;
+		opacity:1;
+	}
+	100% {
+		top:-20px;
+		opacity:0;
+	}
+}
+@keyframes addTimeOut {
+	0% {
+		top:0;
+		opacity:1;
+	}
+	100% {
+		top:-20px;
+		opacity:0;
+	}
+}
+/*@-webkit-keyframes shake {
+	0% {
+		-webkit-transform:translateX(0);
+	}
+	25% {
+		-webkit-transform:translateX(-10px);
+	}
+	50% {
+		-webkit-transform:translateX(-30px);
+	}
+	75% {
+		-webkit-transform:translateX(30px);
+	}
+	100% {
+		-webkit-transform:translateX(0);
+	}
+}
+*/
+@-webkit-keyframes shake {
+	0% {
+		-webkit-transform:rotate(0deg);
+	}
+	33% {
+		-webkit-transform:rotate(-5deg);
+	}
+	66% {
+		-webkit-transform:rotate(5deg);
+	}
+	100% {
+		-webkit-transform:rotate(0deg);
+	}
+}
+@-moz-keyframes shake {
+	0% {
+		-moz-transform:rotate(0deg);
+	}
+	33% {
+		-moz-transform:rotate(-5deg);
+	}
+	66% {
+		-moz-transform:rotate(5deg);
+	}
+	100% {
+		-moz-transform:rotate(0deg);
+	}
+}
+@keyframes shake {
+	0% {
+		transform:rotate(0deg);
+	}
+	33% {
+		transform:rotate(-5deg);
+	}
+	66% {
+		transform:rotate(5deg);
+	}
+	100% {
+		transform:rotate(0deg);
+	}
+}
+
 .mainboard{
 	width:600px;
 	margin:50px auto 0 auto;
 }
+.game-content{
+	padding-top:10%;
+}
 .game-detial{
-	padding-top:45%;
+	padding-top:60%;
+	padding-left:150px;
 	position:relative;
-	padding-left:170px;
+	margin-top:-20%;
 }
 .game-detial .info-list{
 	font-size:16px;
@@ -252,14 +354,12 @@
 	font-size:24px;
 }
 .play-cout-back{
-	position:absolute;
-	left:50%;
+	position:fixed;
+	width:100%;
+	left:0;
 	top:50%;
-	margin:0 0 0 -200px;
-	width:400px;
-	height:220px;
+	margin-top:-300px;
 	text-align:center;
-	line-height:220px;
 }
 .play-cout-back .play-cn{
 	font-size:300px;
@@ -270,21 +370,34 @@
 	animation:fontZoom 1s infinite linear;
 }
 
-.wrapCont {
-	padding-top:15px;
-	border:1px solid #ddd;
+.wrapCont{
+	margin-bottom:80px;
 }
-.wrapCont p {
+.wrapCont .content{
 	height:200px;
 	line-height:200px;
 	font-size:28px;
 	font-weight:bold;
 	text-align:center;
 	color:#555;
-}
-.wrapCont .content{
 	font-family: 'Montserrat', sans-serif;
 }
+
+.q-link{
+	border-top:1px solid #eee;
+	text-align:center;
+	margin-bottom:30px;
+}
+.q-link .q-inner{
+	display:inline-block;
+	padding:0 10px;
+	background:#fff;
+	position:relative;
+	top:-10px;
+	font-size:12px;
+	color:#999;
+}
+
 .keyboard {
 	padding:30px 0;
 }
@@ -328,6 +441,21 @@
 .count-alert{
 	color:red;
 }
+.add-time-out{
+	position:absolute;
+	left:0;
+	top:0;
+	z-index:100;
+	font-size:30px;
+	font-weight:bold;
+	color:red;
+	opacity:0;
+
+	-webkit-animation:addTimeOut .8s ease;
+	-moz-animation:addTimeOut .8s ease;
+	animation:addTimeOut .8s ease;
+}
+
 .over-mask {
 	position:fixed;
 	left:0;
@@ -342,11 +470,14 @@
 	-moz-animation:anim_Drop 2s ease;
 	animation:anim_Drop 2s ease;
 }
-.mask-inner {
+.mask-wrap{
 	position:absolute;
 	left:50%;
 	top:50%;
-	margin:-60px 0 0 -120px;
+}
+.mask-inner {
+	margin-left:-100%;
+	margin-top:-70%;
 	text-align:center;
 }
 .mask-inner .title{
@@ -370,13 +501,59 @@
 .mask-inner a:hover{
 	color:#333;
 }
+.mask-inner .refresh{
+	display:inline-block;
+	border:1px solid #ddd;
+	border-radius:2px;
+	height:23px;
+	line-height:23px;
+	padding:0 10px;
+	background:-webkit-gradient(linear, 0 0, 0 50%, from(#fefefe), to(#f8f8f8));
+	background:-moz-gradient(linear, 0 0, 0 50%, from(#fefefe), to(#f8f8f8));
+	background:gradient(linear, 0 0, 0 50%, from(#fefefe), to(#f8f8f8));
+}
+.mask-inner .refresh:hover{
+	background:#fff;
+}
 .mask-inner .score .red {
-	color:red;
+	color:rgb(213, 0, 0);
 	font-weight:bold;
+	margin-right:15px;
+	font-family:'Titillium Web','microsoft yahei';
 }
-.mask-inner .desc .icon-refresh{
+.refresh .icon-refresh{
+	display:inline-block;
 	margin-right:5px;
+	-webkit-transition: all .8s ease-in-out;
+	-moz-transition: all .8s ease-in-out;
+	transition: all .8s ease-in-out;
 }
+.refresh:hover .icon-refresh{
+	display:inline-block;
+	margin-right:5px;
+	-webkit-transform:rotate(360deg);
+	-moz-transform:rotate(360deg);
+	transform:rotate(360deg);
+}
+
+.icon-over{
+	display:block;
+	margin:0 auto 20px auto;
+	-webkit-animation:shake .1s infinite linear;
+	-moz-animation:shake .1s infinite linear;
+	animation:shake .1s infinite linear;
+}
+.over-0{
+	width:240px;
+	height:240px;
+	background:url(../images/icon-over-1.png#nocache) no-repeat;
+}
+.over-1{
+	width:380px;
+	height:225px;
+	background:url(../images/icon-over-2.png#nocache) no-repeat;
+}
+
 .full-alert {
 	position:fixed;
 	left:0;

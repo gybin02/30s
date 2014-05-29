@@ -82,12 +82,13 @@ html,body{
     width:30px;
     height:30px;
     background-size:cover;
+    border-radius:50%;
 }
 .icon-01{
     background-image:url(../memory/images/apple-touch-icon.png);
 }
 .icon-02{
-    background-image:url(../count/images/57x57.png);
+    background-image:url(../count/images/apple-touch-icon-57x57.png);
 }
 .enter{
     background-image:url(../images/bg.png);
@@ -136,7 +137,9 @@ html,body{
     color:#666;
     font-size:24px;
     background:#fff;
-    
+    overflow:hidden;
+    position:relative;
+
     -webkit-transition:all .2s ease-in-out;
     -moz-transition:all .2s ease-in-out;
     transition:all .2s ease-in-out;
@@ -144,6 +147,26 @@ html,body{
 .game-list .list a:hover{
     border-color:#794410;
     color:#794410;
+}
+.game-list .list a:after{
+    display:block;
+    content:'';
+    position:absolute;
+    left:-80px;
+    top:0;
+    width:60px;
+    height:60px;
+    background:rgba(102,208,241,.2);
+    -webkit-transform:skew(-25deg,0deg);
+    -moz-transform:skew(-25deg,0deg);
+    transform:skew(-25deg,0deg);
+}
+.game-list .list a:hover:after{
+    left:130%;
+    
+    -webkit-transition:all .2s ease-in-out;
+    -moz-transition:all .2s ease-in-out;
+    transition:all .2s ease-in-out;
 }
 .game-list .list i{
     margin-right:10px;
