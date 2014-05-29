@@ -547,16 +547,18 @@
 .mask-inner .title{
 	font-size:40px;
 	color:#666;
-	margin-bottom:10px;
+	/*margin-bottom:10px;*/
 }
 .mask-inner .title .icon-timeout{
 	font-size:42px;
 	margin-right:10px;
 }
 .mask-inner .desc,
-.mask-inner .score {
+.mask-inner .quote,
+.mask-inner .score{
 	font-size:16px;
 	color:#999;
+	margin-bottom:5px;
 }
 .mask-inner a{
 	font-size:12px;
@@ -565,10 +567,25 @@
 .mask-inner a:hover{
 	color:#333;
 }
+.mask-inner .refresh{
+	display:inline-block;
+	border:1px solid #ddd;
+	border-radius:2px;
+	height:23px;
+	line-height:23px;
+	padding:0 10px;
+	background:-webkit-gradient(linear, 0 0, 0 50%, from(#fefefe), to(#f8f8f8));
+	background:-moz-gradient(linear, 0 0, 0 50%, from(#fefefe), to(#f8f8f8));
+	background:gradient(linear, 0 0, 0 50%, from(#fefefe), to(#f8f8f8));
+}
+.mask-inner .refresh:hover{
+	background:#fff;
+}
 .mask-inner .score .red {
-	color:red;
+	color:rgb(213, 0, 0);
 	font-weight:bold;
 	margin-right:15px;
+	font-family:'Titillium Web','microsoft yahei';
 }
 .refresh .icon-refresh{
 	display:inline-block;
