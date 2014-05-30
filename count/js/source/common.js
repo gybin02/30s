@@ -299,19 +299,15 @@ common.setTopic = function(){
 	var examLen = common.exam.length;
 	var rdExam  = Math.floor(Math.random() * examLen);
 	var rd4  = Math.floor(Math.random() * 4);
-	var random_0  = Math.floor(Math.random() * 99),
-		random_1  = Math.floor(Math.random() * 99),
-		random_2  = Math.floor(Math.random() * 99),
-		random_3  = Math.floor(Math.random() * 99);
 
 	var question = common.exam[rdExam][0],
 		answer   = common.exam[rdExam][1];
 
 	//随机生成答案
-	$("result-0").innerHTML = random_0;
-	$("result-1").innerHTML = random_1;
-	$("result-2").innerHTML = random_2;
-	$("result-3").innerHTML = random_3;
+	for(var a = 0;a < 4;a++){
+		var ram_a = Math.floor(Math.random() * 99);
+		$("result-"+a).innerHTML = ram_a;
+	}
 
 	//提出问题
 	$("question").innerHTML = question;
