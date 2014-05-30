@@ -85,10 +85,10 @@ html,body{
     border-radius:50%;
 }
 .icon-01{
-    background-image:url(../memory/images/apple-touch-icon.png);
+    background-image:url(../../memory/images/apple-touch-icon.png);
 }
 .icon-02{
-    background-image:url(../count/images/apple-touch-icon-57x57.png);
+    background-image:url(../../count/images/apple-touch-icon-57x57.png);
 }
 .enter{
     background-image:url(../images/bg.png);

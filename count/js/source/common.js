@@ -83,6 +83,18 @@ common.playCountNum = function(){
 	$("play-cn").innerHTML = playCout;
 }
 
+//预加载游戏文件
+common.cacheIcon = function(){
+	var tpl, cache = ['/30s/memory/images/icon-over-1.png', '/30s/memory/images/icon-over-2.png'];
+	for(var i = 0;i < cache.length;i++){
+		tpl += '<img src="'+cache[i]+'" />';
+	}
+	var div = document.createElement("div");
+		div.setAttribute("style","display:none;");
+		div.innerHTML = tpl;
+	$("game-detial").appendChild(div);
+}
+
 //游戏模版
 common.createGame = function(){
 	var tpl = document.createElement("div");
@@ -332,6 +344,8 @@ $("go-play").onclick = function(){
 		tpl.className = 'play-cout-back';
 		tpl.innerHTML = '<span class="play-cn" id="play-cn">3</span>';
 	$("game-detial").appendChild(tpl);
+
+	common.cacheIcon();//点击的时候预加载游戏文件
 
 	cacheSetinterval = setInterval(function(){
 		common.playCountNum();

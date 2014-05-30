@@ -135,6 +135,7 @@ body{
 	font-size:24px;
 }
 .mask-inner .desc,
+.mask-inner .quote,
 .mask-inner .score{
 	font-size:12px;
 }
@@ -151,4 +152,7 @@ body{
 }
 .mask-inner .title .icon-timeout{
 	font-size:30px;
+}
+.wrapCont .content{
+	padding:10% 0;
 }
