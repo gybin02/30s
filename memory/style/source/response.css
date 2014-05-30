@@ -138,6 +138,10 @@ body{
 .mask-inner .quote,
 .mask-inner .score{
 	font-size:12px;
+	box-sizing:border-box;
+	padding:0 5%;
+	display:inline-block;
+	width:100%;
 }
 .icon-over{
 	background-size:cover;
