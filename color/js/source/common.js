@@ -87,7 +87,17 @@ common.playCountNum = function(){
 
 //预加载游戏文件
 common.cacheIcon = function(){
-	var tpl, cache = ['/30s/memory/images/icon-over-1.png', '/30s/memory/images/icon-over-2.png'];
+	var tpl, cache = ['images/icon-over-1.png', 
+						'images/icon-over-2.png',
+						'images/mask/mask-00.png',
+						'images/mask/mask-01.png',
+						'images/mask/mask-02.png',
+						'images/mask/mask-03.png',
+						'images/mask/mask-04.png',
+						'images/mask/mask-05.png',
+						'images/mask/mask-06.png',
+						'images/mask/mask-07.png',
+						'images/mask/mask-08.png'];
 	for(var i = 0;i < cache.length;i++){
 		tpl += '<img src="'+cache[i]+'" />';
 	}
