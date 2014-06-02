@@ -39,18 +39,43 @@ var initScore = 0; //游戏分数
 var playCout = 3;  //游戏开始倒数
 var addTime = 2;   //答题正确增加的事件(s)
 var body = document.getElementsByTagName("body")[0];
-var cacheNum;
+var cacheAnswer;
 var cacheSetinterval;
 
 common.exam = [
-		['6 + 9 = ?', 15], ['50 ÷ 5 = ?', 10], ['3 × 9 = ?', 27], ['81 - 9 = ?', 72],
-		['19 + 7 = ?', 26], ['36 ÷ 3 = ?', 12], ['7 × 70 = ?', 490], ['16 - 7 = ?', 9],
-		['36 + 19 = ?', 55], ['120 ÷ 3 = ?', 40], ['19 × 3 = ?', 57], ['27 - 16 = ?', 11],
-		['42 + 4 = ?', 46], ['44 ÷ 2 = ?', 22], ['78 × 3 = ?', 234], ['536 - 257 = ?', 279],
-		['392 + 27 = ?', 419], ['338 ÷ 13 = ?', 26], ['78 × 15 = ?', 1170], ['49 - 27 = ?', 22],
-		['32 + 19 = ?', 51], ['81 ÷ 9 = ?', 9], ['19 × 9 = ?', 171], ['89 - 12 = ?', 77],
-		['51 + 23 = ?', 74], ['72 ÷ 9 = ?', 8], ['9 × 18 = ?', 162], ['2 - 89 = ?', -87]
-]
+	['6 + 9 = ?', 15], ['50 ÷ 5 = ?', 10], ['3 × 9 = ?', 27], ['81 - 9 = ?', 72],
+	['19 + 7 = ?', 26], ['36 ÷ 3 = ?', 12], ['7 × 70 = ?', 490], ['16 - 7 = ?', 9],
+	['36 + 19 = ?', 55], ['120 ÷ 3 = ?', 40], ['19 × 3 = ?', 57], ['27 - 16 = ?', 11],
+	['42 + 4 = ?', 46], ['44 ÷ 2 = ?', 22], ['78 × 3 = ?', 234], ['536 - 257 = ?', 279],
+	['392 + 27 = ?', 419], ['338 ÷ 13 = ?', 26], ['78 × 15 = ?', 1170], ['49 - 27 = ?', 22],
+	['32 + 19 = ?', 51], ['81 ÷ 9 = ?', 9], ['19 × 9 = ?', 171], ['89 - 12 = ?', 77],
+	['51 + 23 = ?', 74], ['72 ÷ 9 = ?', 8], ['9 × 18 = ?', 162], ['2 - 89 = ?', -87]
+];
+
+common.getExam = function(exam){
+	var symbol = "+-×÷".charAt(Math.random() * 4 >> 0);
+	var number1 = Math.random() * 1000 >> 0;
+	var number2 = Math.random() * 100 >> 0;
+	var answer = 0;
+	switch(symbol) {
+		case "×":
+			// 降低乘法计算难度
+			number1 = number1 % 100;
+			answer = number1 * number2;
+			break;
+		case "÷":
+			// 保证可以被整除, 且0不能做被除数
+			number2 = number2 || (Math.ceil(Math.random() * 100));
+			number1 -= number1 % number2;
+			answer = number1 / number2;
+			break;
+		default:
+			answer = eval(number1 + symbol + number2);
+			break;
+	}
+
+	return [[number1, symbol, number2, "=", "?"].join(" "), answer];
+};
 
 //倒数计数器
 common.countBack = function(){
@@ -131,7 +156,7 @@ common.starGame = function(){
 		$("keyboard").getElementsByTagName("span")[i].onclick = function(){
 			if(this.innerHTML === '不会'){
 				common.setTopic();
-			}else if (Number(this.innerHTML) === common.exam[cacheNum][1]) {
+			}else if (Number(this.innerHTML) === cacheAnswer) {
 				common.showRight();
 			}else{
 				common.showWrong();
@@ -296,25 +321,31 @@ common.remove = function(id,time){
 
 //出题
 common.setTopic = function(){
-	var examLen = common.exam.length;
-	var rdExam  = Math.floor(Math.random() * examLen);
-	var rd4  = Math.floor(Math.random() * 4);
+	
+	var exam = common.getExam();
+	var question = exam[0];
+	var answer = cacheAnswer = exam[1];
 
-	var question = common.exam[rdExam][0],
-		answer   = common.exam[rdExam][1];
+	var random_counts = 3; // 需要随机生成的答案个数
+	var answer_list = [answer];
+	while(random_counts) {
+		var temp = Math.random() * 99 >> 0;
+		if (answer_list.indexOf(temp) === -1) { // 避免出现重复答案
+			answer_list.push(temp);
+			random_counts--;
+		}
+	}
 
-	//随机生成答案
-	for(var a = 0;a < 4;a++){
-		var ram_a = Math.floor(Math.random() * 99);
-		$("result-"+a).innerHTML = ram_a;
+	answer_list.sort(function(){
+		return Math.random() > .5; // 随机打乱答案顺序
+	});
+
+	for(var a = 0; a < 4; a++){
+		$("result-" + a).innerHTML = answer_list[a];
 	}
 
 	//提出问题
 	$("question").innerHTML = question;
-
-	//正确答案
-	$("result-"+rd4).innerHTML = answer;
-	return cacheNum = rdExam;
 }
 
 //显示+2秒效果
