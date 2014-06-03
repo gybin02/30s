@@ -31,6 +31,12 @@ var common = {
 		return top;
 	}
 };
+// Array.prototype.aremove = function(i){
+//      if(isNaN(i) || i > this.length ){
+//      	return false;
+//      }
+//      this.splice(i,1);
+// }
 var $ = function(id){
 	return document.getElementById(id);
 }
@@ -42,15 +48,11 @@ var body = document.getElementsByTagName("body")[0];
 var cacheNum;
 var cacheSetinterval;
 
-common.exam = [
-		['6 + 9 = ?', 15], ['50 ÷ 5 = ?', 10], ['3 × 9 = ?', 27], ['81 - 9 = ?', 72],
-		['19 + 7 = ?', 26], ['36 ÷ 3 = ?', 12], ['7 × 70 = ?', 490], ['16 - 7 = ?', 9],
-		['36 + 19 = ?', 55], ['120 ÷ 3 = ?', 40], ['19 × 3 = ?', 57], ['27 - 16 = ?', 11],
-		['42 + 4 = ?', 46], ['44 ÷ 2 = ?', 22], ['78 × 3 = ?', 234], ['536 - 257 = ?', 279],
-		['392 + 27 = ?', 419], ['338 ÷ 13 = ?', 26], ['78 × 15 = ?', 1170], ['49 - 27 = ?', 22],
-		['32 + 19 = ?', 51], ['81 ÷ 9 = ?', 9], ['19 × 9 = ?', 171], ['89 - 12 = ?', 77],
-		['51 + 23 = ?', 74], ['72 ÷ 9 = ?', 8], ['9 × 18 = ?', 162], ['2 - 89 = ?', -87]
-]
+common.color = [
+		['000000', '黑'], ['FFFF00', '黄'], ['CFCFCF', '灰'], ['A0522D', '啡'], ['610808', '朱'],
+		['0000EE', '蓝'], ['4B0082', '紫'], ['0a8b00', '绿'], ['26f2a3', '青'],['ff8a00', '橙'],
+		['fc9d9d', '粉'], ['471818', '棕']
+];
 
 //倒数计数器
 common.countBack = function(){
@@ -65,7 +67,7 @@ common.countBack = function(){
 	gameTime--;
 	$("countBack").innerHTML = gameTime;
 	return gameTime;
-}
+};
 
 //开始游戏倒数
 common.playCountNum = function(){
@@ -81,11 +83,21 @@ common.playCountNum = function(){
 	}
 	playCout--;
 	$("play-cn").innerHTML = playCout;
-}
+};
 
 //预加载游戏文件
 common.cacheIcon = function(){
-	var tpl, cache = ['images/icon-over-1.png', 'images/icon-over-2.png'];
+	var tpl, cache = ['images/icon-over-1.png', 
+						'images/icon-over-2.png',
+						'images/mask/mask-00.png',
+						'images/mask/mask-01.png',
+						'images/mask/mask-02.png',
+						'images/mask/mask-03.png',
+						'images/mask/mask-04.png',
+						'images/mask/mask-05.png',
+						'images/mask/mask-06.png',
+						'images/mask/mask-07.png',
+						'images/mask/mask-08.png'];
 	for(var i = 0;i < cache.length;i++){
 		tpl += '<img src="'+cache[i]+'" />';
 	}
@@ -93,7 +105,7 @@ common.cacheIcon = function(){
 		div.setAttribute("style","display:none;");
 		div.innerHTML = tpl;
 	$("game-detial").appendChild(div);
-}
+};
 
 //游戏模版
 common.createGame = function(){
@@ -101,9 +113,9 @@ common.createGame = function(){
 		tpl.className = "game-content";
 		tpl.id = "game-content";
 		tpl.innerHTML = '<div class="wrapCont" id="wrapCont">'
-							+'<p class="content" id="question">loading...</p>'
+							+'<div class="color-wrap" id="color-wrap"><div class="color-mask" id="color-mask"></div></div>'
 						+'</div>'
-						+'<div class="q-link"><span class="q-inner">算术的答案是？</span></div>'
+						+'<div class="q-link"><span class="q-inner">这个字的颜色是？</span></div>'
 						+'<div class="keyboard" id="keyboard">'
 							+'<p class="kb-top"><span class="square" id="result-0">?</span></p>'
 							+'<p class="kb-middle"><span class="square" id="result-1">?</span><span class="square" id="result-next">不会</span><span class="square" id="result-2">?</span></p>'
@@ -113,7 +125,7 @@ common.createGame = function(){
     $("mainboard").appendChild(tpl);
 
     common.starGame();
-}
+};
 
 //初始化游戏
 common.starGame = function(){
@@ -131,14 +143,14 @@ common.starGame = function(){
 		$("keyboard").getElementsByTagName("span")[i].onclick = function(){
 			if(this.innerHTML === '不会'){
 				common.setTopic();
-			}else if (Number(this.innerHTML) === common.exam[cacheNum][1]) {
+			}else if (this.innerHTML === common.color[cacheNum][1]) {
 				common.showRight();
 			}else{
 				common.showWrong();
 			}
 		}
 	}
-}
+};
 
 //再玩一次
 common.refreshGame = function(){
@@ -149,7 +161,7 @@ common.refreshGame = function(){
 		initScore = 0; //游戏分数
 		common.createGame();
 	}
-}
+};
 
 //结束模版
 common.creatOverMask = function(){
@@ -173,7 +185,7 @@ common.creatOverMask = function(){
     document.getElementsByTagName("title")[0].innerHTML = "最强右脑—测试得分"+initScore+";“"+quote+"”";
 
     common.refreshGame();
-}
+};
 
 common.quoteArr = {
 	'junior' : ['骚年，还是得继续努力啊，你饿不饿我下面给你吃？', 
@@ -203,7 +215,7 @@ common.quoteArr = {
 				'喂喂，怎么能够这么高分啊，有什么秘籍吗？', 
 				'天呐，我都怀疑你是不是开挂刷的分数', 
 				'分数这么高，你妈妈造吗？你爸呢？']
-}
+};
 
 //评语
 common.quote = function(score){
@@ -220,7 +232,7 @@ common.quote = function(score){
 		var ram  = Math.floor(Math.random() * len);
 		return common.quoteArr.advance[ram];
 	}
-}
+};
 
 //级别算出
 common.level = function(score){
@@ -243,7 +255,7 @@ common.level = function(score){
 	}else if(score >= 150){
 		return '骚年，收我为徒吧';
 	}
-}
+};
 
 //答题正确
 common.showRight = function(){
@@ -269,7 +281,7 @@ common.showRight = function(){
 	setTimeout(function(){
     	common.setTopic();
 	},600)
-}
+};
 
 //答题错误
 common.showWrong = function(){
@@ -285,7 +297,7 @@ common.showWrong = function(){
 	setTimeout(function(){
     	common.setTopic();
 	},600)
-}
+};
 
 //移除对象函数
 common.remove = function(id,time){
@@ -296,26 +308,35 @@ common.remove = function(id,time){
 
 //出题
 common.setTopic = function(){
-	var examLen = common.exam.length;
-	var rdExam  = Math.floor(Math.random() * examLen);
+	var len = common.color.length;
+	var ram  = Math.floor(Math.random() * len);
 	var rd4  = Math.floor(Math.random() * 4);
 
-	var question = common.exam[rdExam][0],
-		answer   = common.exam[rdExam][1];
+	//随机遮罩模板
+	var rd9  = Math.random() * 9 >> 0,
+		maskImg = 'images/mask/mask-0'+rd9+'.png';
+
+	var color = common.color[ram][0],
+		mask   = common.color[ram][1];
+
+	var array = common.color;
 
 	//随机生成答案
 	for(var a = 0;a < 4;a++){
-		var ram_a = Math.floor(Math.random() * 99);
-		$("result-"+a).innerHTML = ram_a;
+		var ram_a = Math.floor(Math.random() * len);
+
+		$("result-"+a).innerHTML = common.color[ram_a][1];
+		// array.splice(ram_a,1);
 	}
 
 	//提出问题
-	$("question").innerHTML = question;
+	$("color-wrap").setAttribute("style","background-color:#"+color);
+	$("color-mask").setAttribute("style","background-image:url("+maskImg+")");
 
 	//正确答案
-	$("result-"+rd4).innerHTML = answer;
-	return cacheNum = rdExam;
-}
+	$("result-"+rd4).innerHTML = mask;
+	return cacheNum = ram;
+};
 
 //显示+2秒效果
 common.addTimeAnimate = function(){
@@ -333,8 +354,9 @@ common.addTimeAnimate = function(){
 	body.appendChild(em);
 
 	common.remove("add-time-out",1000);//移掉弹层
-}
+};
 
+// common.createGame();
 $("go-play").onclick = function(){
 	var tpl = document.createElement("div");
 		tpl.className = 'play-cout-back';
@@ -346,4 +368,4 @@ $("go-play").onclick = function(){
 	cacheSetinterval = setInterval(function(){
 		common.playCountNum();
 	},1000)
-}
+};

@@ -77,7 +77,10 @@ html,body{
     }
 }
 .icon-01,
-.icon-02{
+.icon-02,
+.icon-03/*,
+.icon-04,
+.icon-05*/{
     display:inline-block;
     width:30px;
     height:30px;
@@ -89,6 +92,9 @@ html,body{
 }
 .icon-02{
     background-image:url(../../count/images/apple-touch-icon-57x57.png);
+}
+.icon-03{
+    background-image:url(../../color/images/apple-touch-icon-57x57.png);
 }
 .enter{
     background-image:url(../images/bg.png);
@@ -116,7 +122,7 @@ html,body{
     animation:brainZoom 1s infinite linear;
 }
 .main-wrap{
-	padding:100px 0;
+	padding:5% 0;
 }
 .game-list{
 	width:330px;
