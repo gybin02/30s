@@ -83,7 +83,6 @@ common.playCountNum = function(){
 		clearInterval(cacheSetinterval);
 		setTimeout(function(){
 			common.createGame();
-			common.checkShare();
 			$("game-detial").parentNode.removeChild($("game-detial"));
 		},500)
 		return;
@@ -382,6 +381,7 @@ common.checkShare = function(){
 	}	
 }
 
+			common.checkShare();
 // common.createGame();
 $("go-play").onclick = function(){
 	var tpl = document.createElement("div");
