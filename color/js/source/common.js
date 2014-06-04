@@ -93,7 +93,7 @@ common.playCountNum = function(){
 
 //预加载游戏文件
 common.cacheIcon = function(){
-	var tpl, cache = ['images/icon-over-1.png', 
+	var tpl = '', cache = ['images/icon-over-1.png', 
 						'images/icon-over-2.png',
 						'images/mask/mask-00.png',
 						'images/mask/mask-01.png',

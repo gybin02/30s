@@ -245,8 +245,11 @@ body{
 }
 .count-back{
 	left:0;
-	top:180px;
+	top:50%;
 	background:#fff;
+}
+.keyboard{
+	padding:0;
 }
 .keyboard .square:hover{
 	box-shadow:none;
