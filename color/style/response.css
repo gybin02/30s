@@ -1,24 +1,54 @@
 html{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
-body,html{width:100%;height:100%}
-@-webkit-keyframes brainZoom{0%{-webkit-transform:scale(1)}
-20%{-webkit-transform:scale(0.9)}
-40%{-webkit-transform:scale(1)}
-60%{-webkit-transform:scale(1.15)}
-100%{-webkit-transform:scale(1)}}
-@-moz-keyframes brainZoom{0%{-moz-transform:scale(1)}
-20%{-moz-transform:scale(0.9)}
-40%{-moz-transform:scale(1)}
-60%{-moz-transform:scale(1.15)}
-100%{-moz-transform:scale(1)}}
-@keyframes brainZoom{0%{transform:scale(1)}
-20%{transform:scale(0.9)}
-40%{transform:scale(1)}
-60%{transform:scale(1.15)}
-100%{transform:scale(1)}}
+html,body{width:100%;height:100%}
+@-webkit-keyframes clock{0%{-webkit-transform:rotate(0deg)}
+100%{-webkit-transform:rotate(-360deg)}}
+@-moz-keyframes clock{0%{-moz-transform:rotate(0deg)}
+100%{-moz-transform:rotate(-360deg)}}
+@keyframes clock{0%{transform:rotate(0deg)}
+100%{transform:rotate(-360deg)}}
+@-webkit-keyframes ac_top{0%{top:10%}
+33%{top:-8%}
+66%{top:13%}
+100%{top:10%}}
+@-moz-keyframes ac_top{0%{top:10%}
+33%{top:-8%}
+66%{top:13%}
+100%{top:10%}}
+@keyframes ac_top{0%{top:10%}
+33%{top:-8%}
+66%{top:13%}
+100%{top:10%}}
+@-webkit-keyframes ac_left{0%{left:10%}
+33%{left:-8%}
+66%{left:13%}
+100%{left:10%}}
+@-moz-keyframes ac_left{0%{left:10%}
+33%{left:-8%}
+66%{left:13%}
+100%{left:10%}}
+@keyframes ac_left{0%{left:10%}
+33%{left:-8%}
+66%{left:13%}
+100%{left:10%}}
+@-webkit-keyframes ac_right{0%{right:10%}
+33%{right:-8%}
+66%{right:13%}
+100%{right:10%}}
+@-moz-keyframes ac_right{0%{right:10%}
+33%{right:-8%}
+66%{right:13%}
+100%{right:10%}}
+@keyframes ac_right{0%{right:10%}
+33%{right:-8%}
+66%{right:13%}
+100%{right:10%}}
 .mainboard{width:100%;height:100%;margin:0}
 .game-detial{padding:0;width:95%;margin:0 auto;top:50%;margin-top:-200px;text-align:center}
-.icon-start-logo{display:block;position:relative;background-size:cover;width:200px;height:200px;margin:0 auto;background-image:url(../images/prison.png?1405311854);margin-bottom:30px;bottom:auto}
-.icon-start-logo:after{position:absolute;content:'';width:70px;height:52px;background-size:cover;background-image:url(../images/brain.png?1405311854);left:50%;margin:30px 0 0 -29px;-webkit-animation:brainZoom 1s infinite linear;-moz-animation:brainZoom 1s infinite linear;animation:brainZoom 1s infinite linear}
+.icon-start-logo{display:block;position:relative;width:200px;height:200px;margin:0 auto;margin-bottom:30px;bottom:auto;background:0;overflow:visible;-webkit-animation:clock 2.5s infinite linear;-moz-animation:clock 2.5s infinite linear;animation:clock 2.5s infinite linear}
+.icon-sircle-red,.icon-sircle-yellow,.icon-sircle-blue{display:block;content:'';width:100px;height:100px;opacity:.7;position:absolute;border-radius:50%}
+.icon-sircle-red{background:red;left:50%;margin-left:-50px;top:10%;-webkit-animation:ac_top 2.5s infinite linear;-moz-animation:ac_top 2.5s infinite linear;animation:ac_top 2.5s infinite linear}
+.icon-sircle-yellow{background:#ffea00;left:10%;top:40%;-webkit-animation:ac_left 2.5s infinite linear;-moz-animation:ac_left 2.5s infinite linear;animation:ac_left 2.5s infinite linear}
+.icon-sircle-blue{background:#1200ff;right:10%;top:40%;-webkit-animation:ac_right 2.5s infinite linear;-moz-animation:ac_right 2.5s infinite linear;animation:ac_right 2.5s infinite linear}
 .game-detial .info-list{font-size:14px}
 .game-content{padding-top:20px}
 .wrapCont{margin-bottom:30px}
