@@ -364,7 +364,7 @@ common.addTimeAnimate = function(){
 
 //如果是微信内置浏览器提示分享
 common.checkShare = function(){
-	if (localStorage.getItem("slayout")) {
+	if (!localStorage.getItem("slayout")) {
 		var ua = navigator.userAgent.toLowerCase();
 		if(ua.indexOf('micromessenger') != -1) {
 			var div = document.createElement("div");
