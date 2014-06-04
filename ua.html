@@ -11,8 +11,10 @@
 <body>
 <script>
 var ua = navigator.userAgent.toLowerCase();
-document.write(ua);
-// if(ua.match(/MicroMessenger/i) == 'micromessenger'){}
+document.write(ua+"<br />");
+if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+	document.write("@weixin browser");
+}
 </script>
 </body>
 </html>
