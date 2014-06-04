@@ -270,7 +270,7 @@ body{
 .mask-inner .score{
 	font-size:12px;
 	box-sizing:border-box;
-	padding:0 5%;
+	padding:0 15%;
 	display:inline-block;
 	width:100%;
 }

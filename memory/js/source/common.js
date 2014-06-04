@@ -88,7 +88,7 @@ common.cacheIcon = function(){
 	var div = document.createElement("div");
 		div.setAttribute("style","display:none;");
 		div.innerHTML = tpl;
-	$("game-detial").appendChild(div);
+	body.appendChild(div);
 }
 
 //游戏模版
