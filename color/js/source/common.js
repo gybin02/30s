@@ -83,6 +83,7 @@ common.playCountNum = function(){
 		clearInterval(cacheSetinterval);
 		setTimeout(function(){
 			common.createGame();
+			common.checkShare();
 			$("game-detial").parentNode.removeChild($("game-detial"));
 		},500)
 		return;
@@ -361,6 +362,25 @@ common.addTimeAnimate = function(){
 
 	common.remove("add-time-out",1000);//移掉弹层
 };
+
+//如果是微信内置浏览器提示分享
+common.checkShare = function(){
+	if (localStorage.getItem("slayout")) {
+		var ua = navigator.userAgent.toLowerCase();
+		if(ua.match(/MicroMessenger/i) == 'micromessenger') {
+			var div = document.createElement("div");
+				div.className = 'share-layout';
+				div.id = 'share-layout';
+				div.innerHTML = '<span class="inner">求支持！把游戏分享到朋友圈吧 :)</span><i class="iconfont icon-close" id="slayout-close">&#xf00b3;</i>';
+			body.appendChild(div);
+
+			$("slayout-close").onclick = function(){
+				common.remove("share-layout",10);
+		    	localStorage.setItem("slayout",1);
+			}
+		}
+	}	
+}
 
 // common.createGame();
 $("go-play").onclick = function(){
