@@ -51,6 +51,12 @@ var cacheSetinterval;
 common.color = [
 		['000000', '黑'], ['FFFF00', '黄'], ['CFCFCF', '灰'], ['A0522D', '啡'], ['610808', '朱'],
 		['0000EE', '蓝'], ['4B0082', '紫'], ['0a8b00', '绿'], ['26f2a3', '青'],['ff8a00', '橙'],
+		['fc9d9d', '粉'], ['471818', '棕'],
+		['000000', '黑'], ['FFFF00', '黄'], ['CFCFCF', '灰'], ['A0522D', '啡'], ['610808', '朱'],
+		['0000EE', '蓝'], ['4B0082', '紫'], ['0a8b00', '绿'], ['26f2a3', '青'],['ff8a00', '橙'],
+		['fc9d9d', '粉'], ['471818', '棕'],
+		['000000', '黑'], ['FFFF00', '黄'], ['CFCFCF', '灰'], ['A0522D', '啡'], ['610808', '朱'],
+		['0000EE', '蓝'], ['4B0082', '紫'], ['0a8b00', '绿'], ['26f2a3', '青'],['ff8a00', '橙'],
 		['fc9d9d', '粉'], ['471818', '棕']
 ];
 
@@ -104,7 +110,7 @@ common.cacheIcon = function(){
 	var div = document.createElement("div");
 		div.setAttribute("style","display:none;");
 		div.innerHTML = tpl;
-	$("game-detial").appendChild(div);
+	body.appendChild(div);
 };
 
 //游戏模版
