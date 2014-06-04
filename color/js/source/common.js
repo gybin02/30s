@@ -367,7 +367,7 @@ common.addTimeAnimate = function(){
 common.checkShare = function(){
 	if (localStorage.getItem("slayout")) {
 		var ua = navigator.userAgent.toLowerCase();
-		if(ua.match(/MicroMessenger/i) == 'micromessenger') {
+		if(ua.indexOf('micromessenger') != -1) {
 			var div = document.createElement("div");
 				div.className = 'share-layout';
 				div.id = 'share-layout';
