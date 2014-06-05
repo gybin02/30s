@@ -1,0 +1,13 @@
+CACHE MANIFEST
+#2014-06-05 v1.0
+index.html
+images/*
+js/*
+style/*
+
+NETWORK:
+#需要网络访问的文件
+
+FALLBACK:
+/html5/ /404.html
+#缓存错误文件 ，第一个是资源，第二个是替补
