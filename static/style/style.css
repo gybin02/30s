@@ -47,12 +47,12 @@ html,body{width:100%;height:100%}
 60%{transform:scale(1.15)}
 100%{transform:scale(1)}}
 .icon-01,.icon-02,.icon-03{display:inline-block;width:30px;height:30px;background-size:cover;border-radius:50%}
-.icon-01{background-image:url(../../memory/images/apple-touch-icon.png?1406051722)}
-.icon-02{background-image:url(../../count/images/apple-touch-icon-57x57.png?1406051722)}
-.icon-03{background-image:url(../../color/images/apple-touch-icon-57x57.png?1406051722)}
-.enter{background-image:url(../images/bg.png?1406051722);background-position:right bottom;background-repeat:no-repeat;background-size:contain}
+.icon-01{background-image:url(../../memory/images/apple-touch-icon.png?1406051754)}
+.icon-02{background-image:url(../../count/images/apple-touch-icon-57x57.png?1406051754)}
+.icon-03{background-image:url(../../color/images/apple-touch-icon-57x57.png?1406051754)}
+.enter{background-image:url(../images/bg.png?1406051754);background-position:right bottom;background-repeat:no-repeat;background-size:contain}
 .header{text-align:center;padding:100px 0}
-.header .logo{display:inline-block;width:326px;height:64px;line-height:9999px;overflow:hidden;margin:0 auto;background-image:url(../images/logo.png?1406051722);background-image:-webkit-image-set(url(../images/logo.png?1406051722) 1x,url(../images/logo@2x.png) 2x);background-repeat:no-repeat;-webkit-animation:brainZoom 1s infinite linear;-moz-animation:brainZoom 1s infinite linear;animation:brainZoom 1s infinite linear}
+.header .logo{display:inline-block;width:326px;height:64px;line-height:9999px;overflow:hidden;margin:0 auto;background-image:url(../images/logo.png?1406051754);background-image:-webkit-image-set(url(../images/logo.png?1406051754) 1x,url(../images/logo@2x.png) 2x);background-repeat:no-repeat;-webkit-animation:brainZoom 1s infinite linear;-moz-animation:brainZoom 1s infinite linear;animation:brainZoom 1s infinite linear}
 .main-wrap{padding:5% 0}
 .game-list{width:330px;margin:0 auto}
 .game-list .list{width:100%;margin:0 auto 20px}
