@@ -55,14 +55,14 @@ common.playCountNum = function(){
 
 //预加载游戏文件
 common.cacheIcon = function(){
-	var tpl, cache = ['/30s/memory/images/icon-over-1.png', '/30s/memory/images/icon-over-2.png'];
+	var tpl, cache = ['images/icon-over-1.png', 'images/icon-over-2.png'];
 	for(var i = 0;i < cache.length;i++){
 		tpl += '<img src="'+cache[i]+'" />';
 	}
 	var div = document.createElement("div");
 		div.setAttribute("style","display:none;");
 		div.innerHTML = tpl;
-	$("game-detial").appendChild(div);
+	body.appendChild(div);
 };
 
 //游戏模版
@@ -246,7 +246,7 @@ common.setTopic = function(){
 
 	var html = [];
 	question.sort(function(){
-		return Math.random() > .5; // 打乱问题元素顺序
+		return Math.random() > .5 ? -1 : 1; // 打乱问题元素顺序
 	});
 	var question_length = question.length;
 	while(question_length) {
