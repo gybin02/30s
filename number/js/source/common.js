@@ -45,6 +45,7 @@ common.playCountNum = function(){
 		setTimeout(function(){
 			common.createGame();
 			$("game-detial").parentNode.removeChild($("game-detial"));
+			common.setStartime();
 		},500)
 		return;
 	}
@@ -152,6 +153,8 @@ common.creatOverMask = function(){
 						+'</div></div>';
     body.appendChild(tpl);
     document.getElementsByTagName("title")[0].innerHTML = "最强右脑—测试得分"+initScore+";“"+quote+"”";
+
+    common.setOverTime(type,initScore);
 
     common.refreshGame();
 };

@@ -6,6 +6,8 @@ var gameTime = 30; //游戏时间
 var initScore = 0; //游戏分数
 var playCout = 3;  //游戏开始倒数
 var addTime = 2;   //答题正确增加的时间(s)
+var stime = null;  //开始游戏的时间
+var statUrl = 'http://www.demo.3kwan.cn/tj.php'; //分数统计的url，打开这个可以看到分数数据
 
 //一些简单函数
 var common = {
@@ -38,6 +40,30 @@ var common = {
 			offsetParent = offsetParent.offsetParent;
 		}
 		return top;
+	},
+	ajax : function(url, success, faild){
+	    var oAjax = null;
+	    if(window.XMLHttpRequest){
+	        oAjax = new XMLHttpRequest();
+	    }else{
+	        oAjax = new ActiveXObject("Microsoft.XMLHTTP");
+	    }
+
+	    oAjax.open('GET', url, true);//open(方法, url, 是否异步)
+
+	    oAjax.send();
+
+	    oAjax.onreadystatechange = function(){//OnReadyStateChange事件
+	        if(oAjax.readyState == 4){//4为完成
+	            if(oAjax.status == 200){//200为成功
+	                success(oAjax.responseText) 
+	            }else{
+	                if(faild){
+	                    faild();
+	                }
+	            }
+	        }
+	    };
 	}
 };
 
@@ -173,6 +199,20 @@ common.addTimeAnimate = function(){
 
 	common.remove("add-time-out",1000);//移掉弹层
 };
+
+common.setStartime = function(){
+	stime = new Date().getTime();
+	return stime;
+};
+
+common.setOverTime = function(game,score){
+	//分数POST统计
+	var ntime = new Date().getTime();
+	var otime = parseInt((ntime - stime) / 1000);
+    common.ajax(statUrl + '?game='+game+'&time='+otime+'&score='+score,function(data){
+    	console.log('post complete!')
+    });
+}
 
 // XD
 console.log("%c", "padding:50px 300px;line-height:120px;background:url('http://www.it.com.cn/edu/artdesign/photoshop/exap/2010/03/08/15/100308_edu_qqbq4_13.gif') no-repeat;");
