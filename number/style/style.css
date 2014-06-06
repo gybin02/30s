@@ -34,7 +34,7 @@ q:before,q:after{content:''}
 @font-face{font-family:micon;src:url(icon/icon.eot);src:url(icon/icon.eot?#iefix) format('embedded-opentype'),url(icon/icon.woff) format('woff'),url(icon/icon.ttf) format('truetype'),url(icon/icon.svg#iconfont) format('svg')}
 .iconfont{font-family:iconfont!important;font-size:16px;font-style:normal;-webkit-font-smoothing:antialiased;-webkit-text-stroke-width:.2px;-moz-osx-font-smoothing:grayscale}
 .micon{font-family:micon!important;font-size:16px;font-style:normal;-webkit-font-smoothing:antialiased;-webkit-text-stroke-width:.2px;-moz-osx-font-smoothing:grayscale}
-.icon-start-logo{width:200px;height:315px;line-height:999px;background-size:cover;background-image:url(../images/start-logo.png?1405301823);position:absolute;left:0;bottom:-75px;overflow:hidden}
+.icon-start-logo{width:200px;height:315px;line-height:999px;background-size:cover;background-image:url(../images/start-logo.png?1406061750);position:absolute;left:0;bottom:-75px;overflow:hidden}
 .icon-start-logo img{position:absolute;left:-999px;top:0}
 .btn-normal{display:inline-block;*display:inline;*zoom:1;color:#fff;background:#ff7800;background:-webkit-linear-gradient(top,#f79137 0,#ff7800 100%);background:-moz-linear-gradient(top,#f79137 0,#ff7800 100%);background:-ms-linear-gradient(top,#f79137 0,#ff7800 100%);background:linear-gradient(top,#f79137 0,#ff7800 100%)}
 .btn-normal:hover{background:#f79137;border-color:#f79137;color:#fff}
@@ -143,8 +143,8 @@ q:before,q:after{content:''}
 .refresh .icon-refresh{display:inline-block;margin-right:5px;-webkit-transition:all .8s ease-in-out;-moz-transition:all .8s ease-in-out;transition:all .8s ease-in-out}
 .refresh:hover .icon-refresh{display:inline-block;margin-right:5px;-webkit-transform:rotate(360deg);-moz-transform:rotate(360deg);transform:rotate(360deg)}
 .icon-over{display:block;margin:0 auto 20px;-webkit-animation:shake .1s infinite linear;-moz-animation:shake .1s infinite linear;animation:shake .1s infinite linear}
-.over-0{width:240px;height:240px;background:url(../images/icon-over-1.png#nocache?1405301823) no-repeat}
-.over-1{width:380px;height:225px;background:url(../images/icon-over-2.png#nocache?1405301823) no-repeat}
+.over-0{width:240px;height:240px;background:url(../images/icon-over-1.png#nocache?1406061750) no-repeat}
+.over-1{width:380px;height:225px;background:url(../images/icon-over-2.png#nocache?1406061750) no-repeat}
 .full-alert{position:fixed;width:100%;left:0;top:50%;margin-top:-250px;font-size:350px;opacity:1;font-weight:700;text-align:center;-webkit-animation:anim_Alert .3s ease;-moz-animation:anim_Alert .3s ease;animation:anim_Alert .3s ease}
 .alert-wrong{color:#d30000}
 .alert-right{color:#007000}
@@ -153,3 +153,6 @@ q:before,q:after{content:''}
 .result-hide{visibility:hidden;-webkit-animation:resultHide .8s ease;-moz-animation:resultHide .8s ease;animation:resultHide .8s ease}
 .mainboard .btn-normal{width:200px;height:55px;line-height:55px;border-radius:3px;text-align:center;font-size:24px}
 .mainboard .btn-normal .icon-play{font-size:24px;margin-right:5px}
+.share-layout{height:40px;line-height:40px;width:100%;background:rgba(0,0,0,.8);position:fixed;left:0;top:0;text-align:right}
+.share-layout .inner{font-size:14px;color:#fff;margin-right:10px}
+.share-layout .icon-close{display:inline-block;width:16px;height:16px;font-size:10px;text-align:center;line-height:16px;border-radius:50%;background:rgba(255,255,255,.6);margin-right:10px;color:#333;cursor:pointer}
