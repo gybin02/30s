@@ -112,6 +112,26 @@ common.checkShare = function(){
 	}
 };
 
+//洗牌算法
+common.mess = function(arr){
+    var _floor = Math.floor, _random = Math.random, 
+        len = arr.length, i, j, arri, 
+        n = _floor(len/2)+1; 
+    while( n-- ){
+        i = _floor(_random()*len);
+        j = _floor(_random()*len);
+        if( i !== j ){
+            arri = arr[i];
+            arr[i] = arr[j];
+            arr[j] = arri;
+        }
+    }
+    //增加切牌操作
+    i = _floor(_random() * len);
+    arr.push.apply(arr, arr.splice(0,i));
+    return arr;
+}
+
 //级别算出
 common.level = function(score){
 	if(score < 10){

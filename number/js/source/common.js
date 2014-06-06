@@ -236,18 +236,20 @@ common.setTopic = function(){
 		}
 	}
 
-	answer_list.sort(function(){
-		return Math.random() > .5; // 随机打乱答案顺序
-	});
+	// answer_list.sort(function(){
+	// 	return Math.random() > .5; // 随机打乱答案顺序
+	// });
+	common.mess(answer_list);
 
 	for(var a = 0; a < 4; a++){
 		$("result-" + a).innerHTML = answer_list[a];
 	}
 
 	var html = [];
-	question.sort(function(){
-		return Math.random() > .5 ? -1 : 1; // 打乱问题元素顺序
-	});
+	// question.sort(function(){
+	// 	return Math.random() > .5; // 打乱问题元素顺序
+	// });
+	common.mess(question);
 	var question_length = question.length;
 	while(question_length) {
 		question_length--;
