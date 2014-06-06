@@ -1,39 +1,39 @@
-var cacheAnswer;
+var type = (location.hash.match(/\btype=\b(\w+)\b/) || [,'max'])[1].toLowerCase();
+var cacheResult;
 var cacheSetinterval;
 
-common.exam = [
-	['6 + 9 = ?', 15], ['50 ÷ 5 = ?', 10], ['3 × 9 = ?', 27], ['81 - 9 = ?', 72],
-	['19 + 7 = ?', 26], ['36 ÷ 3 = ?', 12], ['7 × 70 = ?', 490], ['16 - 7 = ?', 9],
-	['36 + 19 = ?', 55], ['120 ÷ 3 = ?', 40], ['19 × 3 = ?', 57], ['27 - 16 = ?', 11],
-	['42 + 4 = ?', 46], ['44 ÷ 2 = ?', 22], ['78 × 3 = ?', 234], ['536 - 257 = ?', 279],
-	['392 + 27 = ?', 419], ['338 ÷ 13 = ?', 26], ['78 × 15 = ?', 1170], ['49 - 27 = ?', 22],
-	['32 + 19 = ?', 51], ['81 ÷ 9 = ?', 9], ['19 × 9 = ?', 171], ['89 - 12 = ?', 77],
-	['51 + 23 = ?', 74], ['72 ÷ 9 = ?', 8], ['9 × 18 = ?', 162], ['2 - 89 = ?', -87]
-];
-
-common.getExam = function(exam){
-	var symbol = "+-×÷".charAt(Math.random() * 4 >> 0);
-	var number1 = Math.random() * 1000 >> 0;
-	var number2 = Math.random() * 100 >> 0;
+common.getExam = function(number){
+	var question = [];
 	var answer = 0;
-	switch(symbol) {
-		case "×":
-			// 降低乘法计算难度
-			number1 = number1 % 100;
-			answer = number1 * number2;
-			break;
-		case "÷":
-			// 保证可以被整除, 且0不能做被除数
-			number2 = number2 || (Math.ceil(Math.random() * 100));
-			number1 -= number1 % number2;
-			answer = number1 / number2;
-			break;
-		default:
-			answer = eval(number1 + symbol + number2);
-			break;
+	var max = 0;
+	var min = 100;
+
+	var random_counts = number; // 需要随机生成的个数
+	while(random_counts) {
+		var temp = Math.random() * 99 >> 0;
+		if (question.indexOf(temp) === -1) { // 避免出现重复
+			question.push(temp);
+			max = Math.max(max, temp);
+			min = Math.min(min, temp);
+			random_counts--;
+		}
 	}
 
-	return [[number1, symbol, number2, "=", "?"].join(" "), answer];
+	switch(type) {
+		case "min":
+			answer = min;
+			break;
+		case "repeat":
+			answer = question[0];
+			question.pop();
+			question.push(answer);
+			break;
+		default:
+			answer = max;
+			break;
+	}
+	
+	return [question.join("-"), answer];
 };
 
 //开始游戏倒数
@@ -45,7 +45,6 @@ common.playCountNum = function(){
 		setTimeout(function(){
 			common.createGame();
 			$("game-detial").parentNode.removeChild($("game-detial"));
-
 			common.setStartime();
 		},500)
 		return;
@@ -56,7 +55,7 @@ common.playCountNum = function(){
 
 //预加载游戏文件
 common.cacheIcon = function(){
-	var tpl, cache = ['images/icon-over-1.png', 'images/icon-over-2.png'];
+	var tpl, cache = ['/30s/memory/images/icon-over-1.png', '/30s/memory/images/icon-over-2.png'];
 	for(var i = 0;i < cache.length;i++){
 		tpl += '<img src="'+cache[i]+'" />';
 	}
@@ -68,17 +67,29 @@ common.cacheIcon = function(){
 
 //游戏模版
 common.createGame = function(){
+	var question = "";
+	switch(type) {
+		case "min":
+			question = "消失的数字中最小的是？";
+			break;
+		case "repeat":
+			question = "消失的数字中重复的是？";
+			break;
+		default:
+			question = "消失的数字中最大的是？";
+			break;
+	}
 	var tpl = document.createElement("div");
 		tpl.className = "game-content";
 		tpl.id = "game-content";
 		tpl.innerHTML = '<div class="wrapCont" id="wrapCont">'
-							+'<p class="content" id="question">loading...</p>'
+							+'<ul class="micon-list micon-advance" id="micon-list"></ul>'
 						+'</div>'
-						+'<div class="q-link"><span class="q-inner">算术的答案是？</span></div>'
+						+'<div class="q-link"><span class="q-inner">' + question + '</span></div>'
 						+'<div class="keyboard" id="keyboard">'
-							+'<p class="kb-top"><span class="square" id="result-0">?</span></p>'
-							+'<p class="kb-middle"><span class="square" id="result-1">?</span><span class="square" id="result-next">不会</span><span class="square" id="result-2">?</span></p>'
-							+'<p class="kb-bottom"><span class="square" id="result-3">?</span></p>'
+							+'<p class="kb-top"><span class="square" id="result-0"></span></p>'
+							+'<p class="kb-middle"><span class="square" id="result-1"></span><span class="square" id="result-next">忘了</span><span class="square" id="result-2"></span></p>'
+							+'<p class="kb-bottom"><span class="square" id="result-3"></span></p>'
 						+'</div>'
 						+'<span class="count-back" id="countBack">30</span>';
     $("mainboard").appendChild(tpl);
@@ -100,9 +111,9 @@ common.starGame = function(){
 	var kbLen = $("keyboard").getElementsByTagName("span").length;
 	for(var i = 0;i < kbLen;i++){
 		$("keyboard").getElementsByTagName("span")[i].onclick = function(){
-			if(this.innerHTML === '不会'){
+			if(this.innerHTML === '忘了'){
 				common.setTopic();
-			}else if (Number(this.innerHTML) === cacheAnswer) {
+			}else if (this.innerHTML === cacheResult.toString()) {
 				common.showRight();
 			}else{
 				common.showWrong();
@@ -143,7 +154,7 @@ common.creatOverMask = function(){
     body.appendChild(tpl);
     document.getElementsByTagName("title")[0].innerHTML = "最强右脑—测试得分"+initScore+";“"+quote+"”";
 
-    common.setOverTime("count",initScore);
+    common.setOverTime(type,initScore);
 
     common.refreshGame();
 };
@@ -192,10 +203,28 @@ common.showWrong = function(){
 
 //出题
 common.setTopic = function(){
-	
-	var exam = common.getExam();
-	var question = exam[0];
-	var answer = cacheAnswer = exam[1];
+	// 模版
+	var list = '<li class="micon item">{{value}}</li>';
+
+	// 级别
+	var level, levelClass = 'junior';
+	if(initScore < 4){
+		level = 6;
+		levelClass = 'junior';
+	}else if(initScore >= 4 && initScore < 10){
+		level = 8;
+		levelClass = 'middle';
+	}else if(initScore >= 10 && initScore < 16){
+		level = 10;
+		levelClass = 'advance';
+	}else if(initScore >= 16){
+		level = 12;
+		levelClass = 'superman';
+	}
+
+	var exam = common.getExam(level);
+	var question = exam[0].split("-");
+	var answer = cacheResult = exam[1];
 
 	var random_counts = 3; // 需要随机生成的答案个数
 	var answer_list = [answer];
@@ -215,10 +244,27 @@ common.setTopic = function(){
 		$("result-" + a).innerHTML = answer_list[a];
 	}
 
-	//提出问题
-	$("question").innerHTML = question;
+	var html = [];
+	question.sort(function(){
+		return Math.random() > .5; // 打乱问题元素顺序
+	});
+	var question_length = question.length;
+	while(question_length) {
+		question_length--;
+		html.push(list.replace(/{{value}}/ig, question[question_length]));
+	}
+
+	// 生成问题
+	$("micon-list").className = 'micon-list micon-' + levelClass;
+	$("micon-list").innerHTML = html.join("");
+	$("micon-list").style.visibility = "visible";
+
+	setTimeout(function(){
+		$("micon-list").style.visibility = "hidden";
+	}, 800);
 };
 
+// common.starGame() //模板调试的时候开启
 $("go-play").onclick = function(){
 	var tpl = document.createElement("div");
 		tpl.className = 'play-cout-back';
