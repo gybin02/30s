@@ -47,13 +47,14 @@ html,body{width:100%;height:100%}
 60%{transform:scale(1.15)}
 100%{transform:scale(1)}}
 .icon-01,.icon-02,.icon-03,.icon-def{display:inline-block;width:30px;height:30px;background-size:cover;border-radius:50%}
-.icon-01{background-image:url(../../memory/images/apple-touch-icon.png?1406061704)}
-.icon-02{background-image:url(../../count/images/apple-touch-icon-57x57.png?1406061704)}
-.icon-03{background-image:url(../../color/images/apple-touch-icon-57x57.png?1406061704)}
-.icon-def{background-image:url(../images/enter-logo.png?1406061704)}
-.enter{background-image:url(../images/bg.png?1406061704);background-position:right bottom;background-repeat:no-repeat;background-size:contain}
+.icon-01{background-image:url(../../memory/images/apple-touch-icon.png?1406061738)}
+.icon-02{background-image:url(../../count/images/apple-touch-icon-57x57.png?1406061738)}
+.icon-03{background-image:url(../../color/images/apple-touch-icon-57x57.png?1406061738)}
+.icon-def{background-image:url(../images/enter-logo.png?1406061738)}
+.enter{background-image:url(../images/bg.png?1406061738);background-position:right bottom;background-repeat:no-repeat;background-size:contain}
 .header{text-align:center;padding:100px 0}
-.header .logo{display:inline-block;width:326px;height:64px;line-height:9999px;overflow:hidden;margin:0 auto;background-image:url(../images/logo.png?1406061704);background-image:-webkit-image-set(url(../images/logo.png?1406061704) 1x,url(../images/logo@2x.png) 2x);background-repeat:no-repeat;-webkit-animation:brainZoom 1s infinite linear;-moz-animation:brainZoom 1s infinite linear;animation:brainZoom 1s infinite linear}
+.header .logo{display:inline-block;width:326px;height:64px;line-height:9999px;overflow:hidden;margin:0 auto;background-image:url(../images/logo.png?1406061738);background-image:-webkit-image-set(url(../images/logo.png?1406061738) 1x,url(../images/logo@2x.png) 2x);background-repeat:no-repeat;-webkit-animation:brainZoom 1s infinite linear;-moz-animation:brainZoom 1s infinite linear;animation:brainZoom 1s infinite linear}
+.main-wrap{padding:0 0 5%}
 .game-list{width:330px;margin:0 auto}
 .game-list .list{width:100%;margin:0 auto 20px}
 .game-list .list a{display:inline-block;width:100%;text-align:center;border:2px solid #cfcfcf;border-radius:20px;height:60px;line-height:60px;color:#666;font-size:24px;background:#fff;overflow:hidden;position:relative;-webkit-transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;transition:all .2s ease-in-out}
@@ -65,5 +66,8 @@ html,body{width:100%;height:100%}
 .footer a{color:#999;border-bottom:1px dotted #ddd}
 @media only screen and (max-width:600px),only screen and (max-device-width:600px){.header{padding:10% 0}
 .header .logo{width:250px;height:49px;background-size:cover}
-.game-list{width:80%}
-.game-list .list a{font-size:1.5rem}}
+.icon-01,.icon-02,.icon-03,.icon-def{width:25px;height:25px}
+.main-wrap{padding:0 0 10%}
+.game-list{width:60%}
+.game-list .list{margin-bottom:10px}
+.game-list .list a{font-size:1.25rem;height:40px;line-height:40px}}

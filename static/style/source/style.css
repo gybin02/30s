@@ -125,7 +125,7 @@ html,body{
     animation:brainZoom 1s infinite linear;
 }
 .main-wrap{
-	/*padding:5% 0;*/
+	padding:0 0 5% 0;
 }
 .game-list{
 	width:330px;
@@ -207,13 +207,25 @@ html,body{
     height:49px;
     background-size:cover;
 }
+.icon-01,
+.icon-02,
+.icon-03,
+.icon-def{
+    width:25px;
+    height:25px;
+}
 .main-wrap{
-    /*padding:10% 0;*/
+    padding:0 0 10% 0;
 }
 .game-list{
-    width:80%;
+    width:60%;
+}
+.game-list .list{
+    margin-bottom:10px;
 }
 .game-list .list a{
-    font-size:1.5rem;
+    font-size:1.25rem;
+    height:40px;
+    line-height:40px;
 }
 }
