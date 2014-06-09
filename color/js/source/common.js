@@ -1,5 +1,6 @@
 var cacheNum;
 var cacheSetinterval;
+var maskData;
 
 common.color = [
 		['000000', '黑'], ['FFFF00', '黄'], ['CFCFCF', '灰'], ['A0522D', '啡'], ['610808', '朱'],
@@ -31,7 +32,7 @@ common.playCountNum = function(){
 };
 
 //预加载游戏文件
-common.cacheIcon = function(){
+common.cacheFiles = function(){
 	var tpl = '', cache = ['images/icon-over-1.png', 
 						'images/icon-over-2.png'];
 	for(var i = 0;i < cache.length;i++){
@@ -41,6 +42,8 @@ common.cacheIcon = function(){
 		div.setAttribute("style","display:none;");
 		div.innerHTML = tpl;
 	body.appendChild(div);
+
+	common.maskData();//加载游戏的图片文件
 };
 
 //游戏模版
@@ -199,6 +202,24 @@ common.setTopic = function(){
 	return cacheNum = ram;
 };
 
+//缓存mask图片
+common.maskData = function(){
+	// if(!localStorage.getItem("maskData")){
+	// 	common.ScriptLoader({
+	// 		src : "js/mask-data.js"
+	// 	});
+	// 	console.log("from_js_"+maskData);
+
+	// 	localStorage.setItem("maskData",maskData);
+	// }else{
+	// 	var maskData = localStorage.getItem("maskData");
+	// 	console.log("from_LS_"+maskData);
+	// }
+	common.ScriptLoader({
+		src : "js/mask-data.js"
+	});
+}
+
 // common.createGame();
 $("go-play").onclick = function(){
 	var tpl = document.createElement("div");
@@ -206,7 +227,7 @@ $("go-play").onclick = function(){
 		tpl.innerHTML = '<span class="play-cn" id="play-cn">3</span>';
 	$("game-detial").appendChild(tpl);
 
-	common.cacheIcon();//点击的时候预加载游戏文件
+	common.cacheFiles();//点击的时候预加载游戏文件
 
 	cacheSetinterval = setInterval(function(){
 		common.playCountNum();
