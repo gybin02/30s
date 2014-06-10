@@ -208,9 +208,12 @@ common.maskData = function(){
 		common.ScriptLoader("js/mask-data.js", function(){
 			// console.log("from_js2_"+maskData);
 		});
+		var _d;
 		common.ajax("js/mask-data.json", function(data){
-			console.log(data);
-		})
+			_d = data;
+			// console.log(data);
+		});
+		console.log(_d);
 
 		// localStorage.setItem("maskData",maskData);
 	}else{
