@@ -40,7 +40,7 @@ common.maskData = function(){
 		// });
 
 	}else{
-		var maskData = localStorage.getItem("maskData");
+		var maskData = localStorage.getItem("maskData").split("-");
 		console.log("data from localStorage : " + maskData);
 	}
 }
