@@ -40,9 +40,11 @@ common.maskData = function(){
 		// });
 
 	}else{
-		var maskData = localStorage.getItem("maskData").split(";");
+		var LS = localStorage.getItem("maskData"),
+			maskData = LS.split(";");
 		console.log("data from localStorage : " + maskData);
 	}
+	return maskData;
 }
 
 //开始游戏倒数
