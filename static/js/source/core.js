@@ -65,21 +65,22 @@ var common = {
 	        }
 	    };
 	},
-	ScriptLoader : function(config) {
-		if (!config || !config.src) return;
-		var  doc = document;
-		var Head = doc.getElementsByTagName('head')[0],			
-			Script = doc.createElement('script');
+	ScriptLoader : function(src, callback) {
+		if (!src) return;
+		var Head = document.getElementsByTagName('head')[0],			
+			Script = document.createElement('script');
 			Script.onload = Script.onreadystatechange = function() {
 				if (Script && Script.readyState && Script.readyState != 'loaded' && Script.readyState != 'complete') return;
 				Script.onload = Script.onreadystatechange = Script.onerror = null;
 				Script.Src = '';
-				if(!doc.all){Script.parentNode.removeChild(Script);}
+				if(!document.all){Script.parentNode.removeChild(Script);}
 				Script = null;
 			};
-			Script.src = config.src;
-			Script.charset = config.charset || 'utf-8';
+			Script.src = src;
 			Head.insertBefore(Script,Head.firstChild);
+			if(callback){
+				callback();
+			}
 	}
 };
 

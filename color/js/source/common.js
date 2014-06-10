@@ -1,6 +1,6 @@
 var cacheNum;
 var cacheSetinterval;
-var maskData;
+var maskData = null;
 
 common.color = [
 		['000000', '黑'], ['FFFF00', '黄'], ['CFCFCF', '灰'], ['A0522D', '啡'], ['610808', '朱'],
@@ -204,20 +204,19 @@ common.setTopic = function(){
 
 //缓存mask图片
 common.maskData = function(){
-	// if(!localStorage.getItem("maskData")){
-	// 	common.ScriptLoader({
-	// 		src : "js/mask-data.js"
-	// 	});
-	// 	console.log("from_js_"+maskData);
+	if(!localStorage.getItem("maskData")){
+		common.ScriptLoader("js/mask-data.js", function(){
+			// console.log("from_js2_"+maskData);
+		});
+		common.ajax("js/mask-data.json", function(data){
+			console.log(data);
+		})
 
-	// 	localStorage.setItem("maskData",maskData);
-	// }else{
-	// 	var maskData = localStorage.getItem("maskData");
-	// 	console.log("from_LS_"+maskData);
-	// }
-	common.ScriptLoader({
-		src : "js/mask-data.js"
-	});
+		// localStorage.setItem("maskData",maskData);
+	}else{
+		var maskData = localStorage.getItem("maskData");
+		console.log("from_LS_"+maskData);
+	}
 }
 
 // common.createGame();
