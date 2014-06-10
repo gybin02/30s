@@ -1,6 +1,6 @@
 var cacheNum;
 var cacheSetinterval;
-var maskData = null;
+var maskData;
 
 common.color = [
 		['000000', '黑'], ['FFFF00', '黄'], ['CFCFCF', '灰'], ['A0522D', '啡'], ['610808', '朱'],
