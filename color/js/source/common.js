@@ -14,6 +14,38 @@ common.color = [
 		['fc9d9d', '粉'], ['471818', '棕']
 ];
 
+//预加载游戏文件
+common.cacheFiles = function(){
+	var tpl = '', cache = ['images/icon-over-1.png', 
+						'images/icon-over-2.png'];
+	for(var i = 0;i < cache.length;i++){
+		tpl += '<img src="'+cache[i]+'" />';
+	}
+	var div = document.createElement("div");
+		div.setAttribute("style","display:none;");
+		div.innerHTML = tpl;
+	body.appendChild(div);
+
+	common.maskData();//加载游戏的图片文件
+};
+
+//缓存mask图片
+common.maskData = function(){
+	if(!localStorage.getItem("maskData")){
+		// common.ScriptLoader("js/mask-data.js");
+		common.ajax("js/mask-data.json", function(json){
+			maskData = json['data'];
+			localStorage.setItem("maskData",JSON.parse(maskData));
+			console.log("from_js_"+maskData);
+		});
+
+	}else{
+		var maskData = localStorage.getItem("maskData");
+		console.log("from_LS_"+maskData);
+	}
+	return maskData;
+}
+
 //开始游戏倒数
 common.playCountNum = function(){
 	if (playCout === 1) {
@@ -29,21 +61,6 @@ common.playCountNum = function(){
 	}
 	playCout--;
 	$("play-cn").innerHTML = playCout;
-};
-
-//预加载游戏文件
-common.cacheFiles = function(){
-	var tpl = '', cache = ['images/icon-over-1.png', 
-						'images/icon-over-2.png'];
-	for(var i = 0;i < cache.length;i++){
-		tpl += '<img src="'+cache[i]+'" />';
-	}
-	var div = document.createElement("div");
-		div.setAttribute("style","display:none;");
-		div.innerHTML = tpl;
-	body.appendChild(div);
-
-	common.maskData();//加载游戏的图片文件
 };
 
 //游戏模版
@@ -201,22 +218,6 @@ common.setTopic = function(){
 	$("result-"+rd4).innerHTML = mask;
 	return cacheNum = ram;
 };
-
-//缓存mask图片
-common.maskData = function(){
-	if(!localStorage.getItem("maskData")){
-		// common.ScriptLoader("js/mask-data.js");
-		common.ajax("js/mask-data.json", function(data){
-			maskData = data;
-			localStorage.setItem("maskData",maskData);
-			console.log("from_js_"+maskData);
-		});
-
-	}else{
-		var maskData = localStorage.getItem("maskData");
-		console.log("from_LS_"+maskData);
-	}
-}
 
 // common.createGame();
 $("go-play").onclick = function(){
