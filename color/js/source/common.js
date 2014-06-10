@@ -32,18 +32,17 @@ common.cacheFiles = function(){
 //缓存mask图片
 common.maskData = function(){
 	if(!localStorage.getItem("maskData")){
-		// common.ScriptLoader("js/mask-data.js");
-		common.ajax("js/mask-data.json", function(json){
-			maskData = json['data'];
-			localStorage.setItem("maskData",JSON.parse(maskData));
-			console.log("from_js_"+maskData);
-		});
+		common.ScriptLoader("js/mask-data.js");
+		// common.ajax("js/mask-data.json", function(json){
+		// 	maskData = json['data'];
+		// 	localStorage.setItem("maskData",JSON.parse(maskData));
+		// 	console.log("from_js_"+maskData);
+		// });
 
 	}else{
 		var maskData = localStorage.getItem("maskData");
-		console.log("from_LS_"+maskData);
+		console.log("data from localStorage : " + maskData);
 	}
-	return maskData;
 }
 
 //开始游戏倒数
