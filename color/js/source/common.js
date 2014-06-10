@@ -205,17 +205,13 @@ common.setTopic = function(){
 //缓存mask图片
 common.maskData = function(){
 	if(!localStorage.getItem("maskData")){
-		common.ScriptLoader("js/mask-data.js", function(){
-			// console.log("from_js2_"+maskData);
-		});
-		var _d;
+		// common.ScriptLoader("js/mask-data.js");
 		common.ajax("js/mask-data.json", function(data){
-			_d = data;
-			// console.log(data);
+			maskData = data;
+			localStorage.setItem("maskData",maskData);
+			console.log("from_js_"+maskData);
 		});
-		console.log(_d);
 
-		// localStorage.setItem("maskData",maskData);
 	}else{
 		var maskData = localStorage.getItem("maskData");
 		console.log("from_LS_"+maskData);
