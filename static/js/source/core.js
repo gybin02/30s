@@ -123,7 +123,7 @@ common.checkShare = function(){
 
 			$("slayout-close").onclick = function(){
 				common.remove("share-layout",10);
-		    	localStorage.setItem("slayout",1);
+		    	// localStorage.setItem("slayout",1);//这里先不记住关闭状态，朋友圈分享
 			}
 		}
 	}
